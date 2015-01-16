@@ -1,7 +1,6 @@
-package listeners;
+package main.java.spirit1292.spiritfolder.listeners;
 
-import reference.Reference;
-import reference.TerminalMessages;
+import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -11,7 +10,8 @@ public class WindowListeners implements WindowListener
     @Override
     public void windowOpened(WindowEvent e)
     {
-        System.out.println(TerminalMessages.MESSAGE_WINDOW + TerminalMessages.MESSAGE_INFO + TerminalMessages.TITLE_WINDOW_OPENED);
+        System.out.println(TerminalMessages.MESSAGE_WINDOW + TerminalMessages.MESSAGE_INFO
+                + TerminalMessages.TITLE_WINDOW_OPENED);
     }
 
     @Override

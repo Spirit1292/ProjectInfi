@@ -1,4 +1,4 @@
-package reference;
+package main.java.spirit1292.spiritfolder.reference;
 
 public class TerminalMessages
 {
@@ -29,7 +29,7 @@ public class TerminalMessages
     public static final String TITLE_WINDOW_DEICONFIED = "Window is maximized";
     public static final String TITLE_WINDOW_ACTIVATED = "Window is activated";
     public static final String TITLE_WINDOW_DEACTIVATED = "Window is deactivated";
-    //AppTrayIcon.java
+    //AppTray.java
     public static final String TITLE_TRAY_IS_SUPPORTED = "Tray is supported. Cool!";
     public static final String TITLE_TRAY_IS_NOT_SUPPORTED = "Tray is not supported!";
     public static final String TITLE_TRAY_RUN_MESSAGE = "Application is running!!!";
@@ -52,7 +52,7 @@ public class TerminalMessages
     public static final String TITLE_PROCEDURE_CLOSE_ANSWER_2 = "Because Fuck YOU!!!";
     public static final String TITLE_PROCEDURE_CLOSE_EXIT_MESSAGE = "Exit from program...";
     //ProcedureOpenFolder.java
-    public static final String TITLE_PROCEDURE_FOLDER_OPEN = "Open folder";
+    public static final String TITLE_PROCEDURE_FOLDER_OPEN = "Set destination";
     public static final String TITLE_PROCEDURE_FOLDER_EXISTS = "Folder is exists!!!";
     public static final String TITLE_PROCEDURE_FOLDER_CREATE = "Folder Created. Cool!";
     public static final String TITLE_PROCEDURE_FOLDER_ERROR = "Error in creating folder. I`m sorry :(";

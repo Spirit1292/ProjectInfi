@@ -1,11 +1,10 @@
-package core.procedures;
+package main.java.spirit1292.spiritfolder.procedures;
 
-import reference.Reference;
-import reference.TerminalMessages;
+import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 
 import javax.swing.*;
 
-public class ProcedureClose
+public class Close
 {
     public static void main(String[] args)
     {

@@ -1,9 +1,9 @@
-package core.procedures;
+package main.java.spirit1292.spiritfolder.procedures;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ProcedureScreenRes
+public class ScreenResolution
 {
     Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -20,9 +20,9 @@ public class ProcedureScreenRes
     public static void ShowScreenRes()
     {
         String HorizontalSizeString =
-                String.valueOf(new ProcedureScreenRes().GetHorizontalRes());
+                String.valueOf(new ScreenResolution().GetHorizontalRes());
         String VerticalSizeString =
-                String.valueOf(new ProcedureScreenRes().GetVerticalRes());
+                String.valueOf(new ScreenResolution().GetVerticalRes());
 
         JOptionPane.showMessageDialog(
                 null,
@@ -37,5 +37,4 @@ public class ProcedureScreenRes
     {
 
     }
-
 }

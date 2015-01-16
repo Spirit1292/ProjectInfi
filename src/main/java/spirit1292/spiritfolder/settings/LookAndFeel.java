@@ -1,7 +1,7 @@
-package settings;
+package main.java.spirit1292.spiritfolder.settings;
 
-import reference.Reference;
-import reference.TerminalMessages;
+import main.java.spirit1292.spiritfolder.reference.Reference;
+import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 
 import javax.swing.*;
 

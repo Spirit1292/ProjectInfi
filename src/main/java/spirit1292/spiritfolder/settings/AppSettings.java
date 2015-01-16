@@ -1,7 +1,7 @@
-package settings;
+package main.java.spirit1292.spiritfolder.settings;
 
-import reference.Reference;
-import reference.TerminalMessages;
+import main.java.spirit1292.spiritfolder.reference.Reference;
+import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,7 +14,7 @@ public class AppSettings
         try
         {
             Properties AppProperties  = new Properties();
-            FileInputStream SettingsFile = new FileInputStream(Reference.SETTINGS_FILE_NAME);
+            FileInputStream SettingsFile = new FileInputStream(Reference.SETTINGS_LOCATION + Reference.SETTINGS_NAME);
             AppProperties.loadFromXML(SettingsFile);
             AppProperties.list(System.out);
             String SettingKey = AppProperties.getProperty(SettingName);
@@ -28,7 +28,7 @@ public class AppSettings
             System.out.println(TerminalMessages.MESSAGE_SYSTEM +
                     TerminalMessages.MESSAGE_ERROR +
                     TerminalMessages.TITLE_SETTINGS_LOAD_ERROR);
-            return("c://");
+            return null;
         }
     }
 
@@ -38,7 +38,7 @@ public class AppSettings
         {
             Properties AppProperties  = new Properties();
             AppProperties.setProperty(SettingName, SettingKey);
-            FileOutputStream SettingsFile = new FileOutputStream(Reference.SETTINGS_FILE_NAME);
+            FileOutputStream SettingsFile = new FileOutputStream(Reference.SETTINGS_LOCATION + Reference.SETTINGS_NAME);
             AppProperties.storeToXML(SettingsFile,null);
             SettingsFile.close();
             System.out.println(TerminalMessages.MESSAGE_SYSTEM +
