@@ -24,7 +24,7 @@ public class WindowActionListeners
             {
                 System.out.println(TerminalMessages.MESSAGE_SYSTEM +
                             TerminalMessages.MESSAGE_ERROR +
-                            "Error: folder is not been opened!!!");
+                            TerminalMessages.TITLE_WINDOW_ACTION_FOLDER_OPEN_ERROR);
             }
         }
     };
@@ -43,7 +43,7 @@ public class WindowActionListeners
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            FolderMonitoring.main(null);
+            new FolderMonitoring().folderMonitoring();
         }
     };
 }
