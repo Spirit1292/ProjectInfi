@@ -1,5 +1,6 @@
 package main.java.spirit1292.spiritfolder.listeners;
 
+import main.java.spirit1292.spiritfolder.procedures.Close;
 import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 
 import java.awt.event.WindowEvent;
@@ -19,6 +20,7 @@ public class WindowListeners implements WindowListener
     {
         System.out.println(TerminalMessages.MESSAGE_WINDOW + TerminalMessages.MESSAGE_INFO
                 + TerminalMessages.TITLE_WINDOW_CLOSING);
+        Close.main(null);
     }
 
     @Override

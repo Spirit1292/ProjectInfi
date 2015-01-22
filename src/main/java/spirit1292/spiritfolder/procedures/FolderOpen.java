@@ -8,7 +8,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
-public class OpenFolder
+public class FolderOpen
 {
     public static void main(String[] args) throws IOException
     {

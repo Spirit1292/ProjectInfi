@@ -7,18 +7,19 @@ import main.java.spirit1292.spiritfolder.settings.AppSettings;
 import javax.swing.*;
 import java.io.File;
 
-public class SelectFolderLocation extends JFrame
+public class FolderLocation extends JFrame
 {
-    private static String FolderDestination = AppSettings.LoadSettings("UserFolderDestination");
+    private static String spiritFolderDestination =
+            AppSettings.LoadSettings(Reference.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
 
     public static void main(String[] args)
     {
-        JFileChooser folderChooser = new JFileChooser(FolderDestination);
+        JFileChooser folderChooser = new JFileChooser(spiritFolderDestination);
         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         folderChooser.setAcceptAllFileFilterUsed(false);
 
         {
-            String folderDestination = AppSettings.LoadSettings(Reference.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
+            String folderDestination = spiritFolderDestination;
             File folderCreating = new File(folderDestination);
             if (folderCreating.exists())
             {
@@ -32,8 +33,7 @@ public class SelectFolderLocation extends JFrame
                 {
                     try
                     {
-                        String SettingsFolderDestionation =
-                                AppSettings.LoadSettings(Reference.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
+                        String SettingsFolderDestionation = spiritFolderDestination;
                         if (folderCreating.exists() && SettingsFolderDestionation != null)
                         {
                             JOptionPane.showMessageDialog(

@@ -4,12 +4,12 @@ public class TerminalMessages
 {
     //Terminal messages
     //Structures
-    public static final String MESSAGE_SYSTEM = "[System call] ";
-    public static final String MESSAGE_WINDOW = "[Window call] ";
-    public static final String MESSAGE_DONE = "[Done]: ";
-    public static final String MESSAGE_INFO = "[Info]: ";
-    public static final String MESSAGE_WARN = "[Warn]: ";
-    public static final String MESSAGE_ERROR = "[Error]: ";
+    public static final String MESSAGE_SYSTEM = "[System call / ";
+    public static final String MESSAGE_WINDOW = "[Window call / ";
+    public static final String MESSAGE_DONE = "Done]: ";
+    public static final String MESSAGE_INFO = "Info]: ";
+    public static final String MESSAGE_WARN = "Warn]: ";
+    public static final String MESSAGE_ERROR = "Error]: ";
     //Titles
     //Window.java
     public static final String TITLE_WINDOW_OPEN_MESSAGE = "Try to open window...";
@@ -37,10 +37,10 @@ public class TerminalMessages
     public static final String TITLE_SETTINGS_SAVE_ERROR = "Saving of settings is broken!!!";
     //Close.java
     public static final String TITLE_PROCEDURE_CLOSE_QUESTION_TITLE = "Program Message";
-    public static final String TITLE_PROCEDURE_CLOSE_QUESTION_1 = "Close program?";
-    public static final String TITLE_PROCEDURE_CLOSE_QUESTION_2 = "Why???";
-    public static final String TITLE_PROCEDURE_CLOSE_ANSWER_2 = "Because Fuck YOU!!!";
-    public static final String TITLE_PROCEDURE_CLOSE_EXIT_MESSAGE = "Exit from program...";
+    public static final String TITLE_PROCEDURE_CLOSE_QUESTION_FIRST = "Close program?";
+    public static final String TITLE_PROCEDURE_CLOSE_QUESTION_SECOND = "Why???";
+    public static final String TITLE_PROCEDURE_CLOSE_ANSWER_SECOND = "Because Fuck YOU!!!";
+    public static final String TITLE_PROCEDURE_CLOSE_MESSAGE = "Exit from program...";
     //OpenFolder.java
     public static final String TITLE_PROCEDURE_FOLDER_OPEN = "Set destination";
     public static final String TITLE_PROCEDURE_FOLDER_EXISTS = "Folder is exists!!!";
