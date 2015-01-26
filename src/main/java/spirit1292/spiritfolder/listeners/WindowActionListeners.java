@@ -2,6 +2,7 @@ package main.java.spirit1292.spiritfolder.listeners;
 
 import main.java.spirit1292.spiritfolder.procedures.Close;
 import main.java.spirit1292.spiritfolder.procedures.FolderOpen;
+import main.java.spirit1292.spiritfolder.procedures.TerminalMessage;
 import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 import main.java.spirit1292.spiritfolder.windows.MainWindow;
 
@@ -22,19 +23,8 @@ public class WindowActionListeners extends MainWindow
             }
             catch (IOException f)
             {
-                System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                        TerminalMessages.MESSAGE_ERROR +
-                        TerminalMessages.TITLE_WINDOW_ACTION_FOLDER_OPEN_ERROR);
+                new TerminalMessage().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOW_ACTION_FOLDER_OPEN_ERROR);
             }
-        }
-    };
-
-    public static ActionListener exit = new ActionListener()
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            Close.main(null);
         }
     };
 
@@ -45,16 +35,12 @@ public class WindowActionListeners extends MainWindow
         {
             try
             {
-                folderTree.update(null);
-                System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                        TerminalMessages.MESSAGE_DONE +
-                        "FolderList is refreshing");
+                folderTree.updateUI();
+                new TerminalMessage().ShowMessage(1, 1, TerminalMessages.TITLE_WINDOW_ACTION_FOLDER_LIST_REFRESH_DONE);
             }
             catch (Exception g)
             {
-                System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                        TerminalMessages.MESSAGE_ERROR +
-                        "Something wrong in refreshing of FolderList!!!");
+                new TerminalMessage().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOW_ACTION_FOLDER_LIST_REFRESH_ERROR);
             }
         }
     };

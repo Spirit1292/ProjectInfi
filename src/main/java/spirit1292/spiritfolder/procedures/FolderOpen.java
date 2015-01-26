@@ -20,14 +20,11 @@ public class FolderOpen
                     Reference.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
             dirToOpen = new File(folder);
             desktop.open(dirToOpen);
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                    TerminalMessages.MESSAGE_DONE +
-                    TerminalMessages.TITLE_WINDOW_ACTION_FOLDER_OPEN_DONE);
+            new TerminalMessage().ShowMessage(1, 1, TerminalMessages.TITLE_WINDOW_ACTION_FOLDER_OPEN_DONE);
         }
         catch (IllegalArgumentException iae)
         {
-            System.out.println(
-                    TerminalMessages.TITLE_PROCEDURE_FOLDER_MISSING);
+            new TerminalMessage().ShowMessage(1, 4 ,TerminalMessages.TITLE_PROCEDURE_FOLDER_MISSING);
         }
     }
 }

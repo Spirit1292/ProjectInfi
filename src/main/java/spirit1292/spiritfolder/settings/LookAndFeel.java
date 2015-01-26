@@ -1,5 +1,6 @@
 package main.java.spirit1292.spiritfolder.settings;
 
+import main.java.spirit1292.spiritfolder.procedures.TerminalMessage;
 import main.java.spirit1292.spiritfolder.reference.Reference;
 import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 
@@ -14,24 +15,19 @@ public class LookAndFeel
             if (Reference.LOOKANDFEEL_SHORT_JAVA == UIManager.getLookAndFeel().getName())
             {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                        TerminalMessages.MESSAGE_DONE +
-                        TerminalMessages.TITLE_LOOKANDFEEL_INSTALL_MESSAGE +
+                new TerminalMessage().ShowMessage(1, 1, TerminalMessages.TITLE_LOOKANDFEEL_INSTALL_MESSAGE +
                         UIManager.getLookAndFeel().getName());
             }
             else
             {
-                System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                        TerminalMessages.MESSAGE_INFO +
-                        TerminalMessages.TITLE_LOOKANDFEEL_IS_INSTALL +
+                new TerminalMessage().ShowMessage(1, 2, TerminalMessages.TITLE_LOOKANDFEEL_IS_INSTALL +
                         UIManager.getLookAndFeel().getName());
             }
         }
         catch (UnsupportedLookAndFeelException e)
         {
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM + TerminalMessages.MESSAGE_ERROR +
-                    TerminalMessages.TITLE_LOOKANDFEEL_ERROR_UNSUPPORTED);
-            System.out.println(TerminalMessages.TITLE_LOOKANDFEEL_CURRENT +
+            new TerminalMessage().ShowMessage(1, 4, TerminalMessages.TITLE_LOOKANDFEEL_ERROR_UNSUPPORTED);
+            new TerminalMessage().ShowMessage(1, 2, TerminalMessages.TITLE_LOOKANDFEEL_CURRENT +
                     UIManager.getLookAndFeel().getDescription());
         }
         catch (ClassNotFoundException e)

@@ -1,7 +1,6 @@
 package main.java.spirit1292.spiritfolder.procedures;
 
 import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 import main.java.spirit1292.spiritfolder.settings.AppSettings;
 
 import javax.swing.*;
@@ -14,15 +13,11 @@ public class FolderMonitoring
 
     public void GetList(DefaultMutableTreeNode node, File file) {
         if (!file.isDirectory()) {
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                    TerminalMessages.MESSAGE_INFO +
-                    "Found file: " + file.getName());
+            new TerminalMessage().ShowMessage(1, 2, "Found file: " + file.getName());
             DefaultMutableTreeNode child = new DefaultMutableTreeNode(file);
             node.add(child);
         } else {
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                    TerminalMessages.MESSAGE_INFO +
-                    "Found folder: " + file.getName());
+            new TerminalMessage().ShowMessage(1, 2, "Found folder: " + file.getName());
             DefaultMutableTreeNode child = new DefaultMutableTreeNode(file);
             node.add(child);
             File fList[] = file.listFiles();

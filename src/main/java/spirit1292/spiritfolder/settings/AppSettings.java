@@ -1,5 +1,6 @@
 package main.java.spirit1292.spiritfolder.settings;
 
+import main.java.spirit1292.spiritfolder.procedures.TerminalMessage;
 import main.java.spirit1292.spiritfolder.reference.Reference;
 import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 
@@ -18,16 +19,12 @@ public class AppSettings
             AppProperties.loadFromXML(SettingsFile);
             AppProperties.list(System.out);
             String SettingKey = AppProperties.getProperty(SettingName);
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                    TerminalMessages.MESSAGE_DONE +
-                    TerminalMessages.TITLE_SETTINGS_LOAD_DONE);
+            new TerminalMessage().ShowMessage(1, 1, TerminalMessages.TITLE_SETTINGS_LOAD_DONE);
             return(SettingKey);
         }
         catch (Exception e)
         {
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                    TerminalMessages.MESSAGE_ERROR +
-                    TerminalMessages.TITLE_SETTINGS_LOAD_ERROR);
+            new TerminalMessage().ShowMessage(1, 4, TerminalMessages.TITLE_SETTINGS_LOAD_ERROR);
             return null;
         }
     }
@@ -39,17 +36,13 @@ public class AppSettings
             Properties AppProperties  = new Properties();
             AppProperties.setProperty(SettingName, SettingKey);
             FileOutputStream SettingsFile = new FileOutputStream(Reference.SETTINGS_LOCATION + Reference.SETTINGS_NAME);
-            AppProperties.storeToXML(SettingsFile,null);
+            AppProperties.storeToXML(SettingsFile, null);
             SettingsFile.close();
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                    TerminalMessages.MESSAGE_DONE +
-                    TerminalMessages.TITLE_SETTINGS_SAVE_DONE);
+            new TerminalMessage().ShowMessage(1, 1, TerminalMessages.TITLE_SETTINGS_SAVE_DONE);
         }
         catch (Exception e)
         {
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM +
-                    TerminalMessages.MESSAGE_ERROR +
-                    TerminalMessages.TITLE_SETTINGS_SAVE_ERROR);
+            new TerminalMessage().ShowMessage(1, 4, TerminalMessages.TITLE_SETTINGS_SAVE_ERROR);
         }
     }
 }

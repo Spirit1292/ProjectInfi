@@ -4,8 +4,8 @@ public class TerminalMessages
 {
     //Terminal messages
     //Structures
-    public static final String MESSAGE_SYSTEM = "[System call / ";
-    public static final String MESSAGE_WINDOW = "[Window call / ";
+    public static final String MESSAGE_SYSTEM = "[System call // ";
+    public static final String MESSAGE_WINDOW = "[Window call // ";
     public static final String MESSAGE_DONE = "Done]: ";
     public static final String MESSAGE_INFO = "Info]: ";
     public static final String MESSAGE_WARN = "Warn]: ";
@@ -25,6 +25,8 @@ public class TerminalMessages
     //WindowActionListeners.java
     public static final String TITLE_WINDOW_ACTION_FOLDER_OPEN_DONE = "Folder is open";
     public static final String TITLE_WINDOW_ACTION_FOLDER_OPEN_ERROR = "Folder is not been opened!!!";
+    public static final String TITLE_WINDOW_ACTION_FOLDER_LIST_REFRESH_DONE = "FolderList is refresh";
+    public static final String TITLE_WINDOW_ACTION_FOLDER_LIST_REFRESH_ERROR = "Something wrong in refreshing!!!";
     //LookAndFeel.java
     public static final String TITLE_LOOKANDFEEL_INSTALL_MESSAGE = "System LookAndFeel installed: ";
     public static final String TITLE_LOOKANDFEEL_IS_INSTALL = "LookAndFeel is already installed: ";

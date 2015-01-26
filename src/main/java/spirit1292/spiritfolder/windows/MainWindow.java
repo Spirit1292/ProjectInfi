@@ -4,6 +4,7 @@ import main.java.spirit1292.spiritfolder.procedures.FolderLocation;
 import main.java.spirit1292.spiritfolder.listeners.WindowActionListeners;
 import main.java.spirit1292.spiritfolder.listeners.WindowListeners;
 import main.java.spirit1292.spiritfolder.procedures.FolderMonitoring;
+import main.java.spirit1292.spiritfolder.procedures.TerminalMessage;
 import main.java.spirit1292.spiritfolder.reference.Names;
 import main.java.spirit1292.spiritfolder.reference.Reference;
 import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
@@ -12,12 +13,13 @@ import main.java.spirit1292.spiritfolder.settings.LookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
 public class MainWindow extends JFrame
 {
     public static JTree folderTree;
+    public static JButton buttonOpenFolder;
+    public static JButton buttonRefresh;
+    public static JTextArea debug;
     public String spiritFolderLocation = AppSettings.LoadSettings(Reference.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
     Image image = new ImageIcon(Reference.APPLICATION_ICON_LOCATION + Reference.APPLICATION_ICON_NAME).getImage();
 
@@ -27,47 +29,49 @@ public class MainWindow extends JFrame
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setIconImage(image);
 
-        JPanel panelMain = new JPanel(new FlowLayout());
-        JButton buttonOpenFolder = new JButton(Names.MAINWINDOW_BUTTON_OPENFOLDER_NAME);
-        JButton buttonRefresh = new JButton(Names.MAINWINDOW_BUTTON_REFRESH_NAME);
+        JPanel panelButtons = new JPanel(new FlowLayout());
+        buttonOpenFolder = new JButton(Names.MAINWINDOW_BUTTON_OPENFOLDER_NAME);
+        buttonRefresh = new JButton(Names.MAINWINDOW_BUTTON_REFRESH_NAME);
+        debug = new JTextArea(10, 80);
+
         folderTree = new FolderMonitoring().FolderTree();
 
-        add(folderTree,BorderLayout.NORTH);
-        add(buttonOpenFolder);
-        add(buttonRefresh);
+        panelButtons.add(buttonOpenFolder);
+        panelButtons.add(buttonRefresh);
 
-        panelMain.add(buttonOpenFolder);
-        panelMain.add(buttonRefresh);
+        add(folderTree, BorderLayout.NORTH);
+        add(panelButtons, BorderLayout.SOUTH);
+        add(debug, BorderLayout.EAST);
 
-        add(panelMain, BorderLayout.SOUTH);
-
-        setPreferredSize(new Dimension(400, 600));
+        setPreferredSize(new Dimension(800, 600));
         pack();
         setLocationRelativeTo(null);
 
+        ActionListeners();
+        addWindowListener(new WindowListeners());
+        FolderLocation.main(null);
+        setVisible(true);
+    }
+
+    public void ActionListeners()
+    {
         buttonOpenFolder.addActionListener(WindowActionListeners.openFolder);
         buttonRefresh.addActionListener(WindowActionListeners.folderList);
-
-        addWindowListener(new WindowListeners());
-        setVisible(true);
     }
 
     public static void main(String[] args)
     {
         try
         {
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM + TerminalMessages.MESSAGE_INFO +
-                    TerminalMessages.TITLE_WINDOW_OPEN_MESSAGE);
+            new TerminalMessage().ShowMessage(1, 2, TerminalMessages.TITLE_WINDOW_OPEN_MESSAGE);
+
             LookAndFeel.main(null);
 
             new MainWindow();
-
-            FolderLocation.main(null);
         }
         catch (Exception e)
         {
-            System.out.println(TerminalMessages.MESSAGE_SYSTEM + TerminalMessages.MESSAGE_ERROR +
-                    TerminalMessages.TITLE_WINDOW_OPEN_ERROR);
+            new TerminalMessage().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOW_OPEN_ERROR);
         }
     }
 }
