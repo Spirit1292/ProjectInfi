@@ -3,15 +3,11 @@ package main.java.spirit1292.spiritfolder.reference;
 public class Reference
 {
     //Main
-    public static final String APPLICATION_NAME = "SpiritFolder";
-    public static final String APPLICATION_ICON_NAME = "Briefcase.png";
-    public static final String APPLICATION_ICON_LOCATION = "src/main/resources/assets/spiritfolder/textures/";
-    public static final String SETTINGS_NAME = "Settings.xml";
-    public static final String SETTINGS_LOCATION = "src/main/java/spirit1292/spiritfolder/settings/";
-    public static final String HOME_DIRECTORY = "user.home";
-
-    //Settings
-    public static final String SETTING_SPIRITFOLDER_DESTINATION_TITLE = "SpiritFolderDestination";
+    public static final String APP_NAME = "SpiritFolder";
+    public static final String APP_ICON_NAME = "Briefcase.png";
+    public static final String APP_ICON_LOCATION = "src/main/resources/assets/spiritfolder/textures/";
+    public static final String APP_CONFIG_FILE_NAME = "Settings.xml";
+    public static final String APP_CONFIG_FILE_LOCATION = "src/main/java/spirit1292/spiritfolder/settings/";
 
     //LookAndFeel full names
     public static final String LOOKANDFEEL_FULL_JAVA = "javax.swing.plaf.metal.MetalLookAndFeel";

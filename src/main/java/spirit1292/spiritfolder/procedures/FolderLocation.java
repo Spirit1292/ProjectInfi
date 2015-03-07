@@ -1,40 +1,40 @@
 package main.java.spirit1292.spiritfolder.procedures;
 
+import main.java.spirit1292.spiritfolder.reference.Names;
 import main.java.spirit1292.spiritfolder.reference.Reference;
 import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
-import main.java.spirit1292.spiritfolder.settings.AppSettings;
+import main.java.spirit1292.spiritfolder.settings.AppConfig;
 
 import javax.swing.*;
 import java.io.File;
 
 public class FolderLocation extends JFrame
 {
-    private static String spiritFolderDestination =
-            AppSettings.LoadSettings(Reference.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
-
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
+        File fileConfig = new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME);
+        AppConfig.load(fileConfig);
+        String spiritFolderDestination = (String) AppConfig.get(Names.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
+
         JFileChooser folderChooser = new JFileChooser(spiritFolderDestination);
         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         folderChooser.setAcceptAllFileFilterUsed(false);
 
         {
-            String folderDestination = spiritFolderDestination;
-            File folderCreating = new File(folderDestination);
-            if (folderCreating.exists())
+            if (spiritFolderDestination != null)
             {
-                return;
+                new Message().ShowMessage(1, 2, TerminalMessages.TITLE_PROCEDURE_FOLDER_EXISTS, false);
             }
             else
             {
+                File folderCreating = new File(spiritFolderDestination);
                 int ret = folderChooser.showDialog(null, TerminalMessages.TITLE_PROCEDURE_FOLDER_OPEN);
                 if (ret == JFileChooser.APPROVE_OPTION)
-                folderDestination = folderChooser.getSelectedFile().toString() + Reference.APPLICATION_NAME;
+                    spiritFolderDestination = folderChooser.getSelectedFile().toString() + Reference.APP_NAME;
                 {
                     try
                     {
-                        String SettingsFolderDestionation = spiritFolderDestination;
-                        if (folderCreating.exists() && SettingsFolderDestionation != null)
+                        if (folderCreating.exists())
                         {
                             JOptionPane.showMessageDialog(
                                     null,
@@ -42,18 +42,20 @@ public class FolderLocation extends JFrame
                                     TerminalMessages.TITLE_PROCEDURE_MESSAGE_TITLE,
                                     JOptionPane.INFORMATION_MESSAGE);
                         }
-                        else if (!folderCreating.exists() && SettingsFolderDestionation != null)
+                        else if (!folderCreating.exists())
                         {
-                            folderCreating = new File(AppSettings.LoadSettings(
-                                    Reference.SETTING_SPIRITFOLDER_DESTINATION_TITLE));
+                            folderCreating = new File(
+                                    (String) AppConfig.get(Names.SETTING_SPIRITFOLDER_DESTINATION_TITLE));
                             folderCreating.mkdirs();
-                            Object[] options = {TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_1,
-                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_2};
-                            int i = JOptionPane.showOptionDialog(
+                            Object[] options = {
+                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_1,
+                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_2
+                            };
+                            JOptionPane.showOptionDialog(
                                     null,
                                     TerminalMessages.TITLE_PROCEDURE_FOLDER_CREATE,
                                     TerminalMessages.TITLE_PROCEDURE_MESSAGE_TITLE,
-                                    JOptionPane.YES_OPTION,
+                                    JOptionPane.OK_OPTION,
                                     JOptionPane.INFORMATION_MESSAGE,
                                     null,
                                     options,
@@ -62,14 +64,15 @@ public class FolderLocation extends JFrame
                         else
                         {
                             folderCreating.mkdirs();
-                            AppSettings.SaveSettings(Reference.SETTING_SPIRITFOLDER_DESTINATION_TITLE,folderDestination);
+                            AppConfig.put(Names.SETTING_SPIRITFOLDER_DESTINATION_TITLE, spiritFolderDestination);
+                            AppConfig.save(fileConfig);
                             Object[] options = {TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_1,
                                     TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_2};
-                            int j = JOptionPane.showOptionDialog(
+                            JOptionPane.showOptionDialog(
                                     null,
                                     TerminalMessages.TITLE_PROCEDURE_FOLDER_CREATE,
                                     TerminalMessages.TITLE_PROCEDURE_MESSAGE_TITLE,
-                                    JOptionPane.YES_OPTION,
+                                    JOptionPane.OK_OPTION,
                                     JOptionPane.INFORMATION_MESSAGE,
                                     null,
                                     options,
@@ -78,11 +81,7 @@ public class FolderLocation extends JFrame
                     }
                     catch (Exception e)
                     {
-                        JOptionPane.showMessageDialog(
-                                null,
-                                TerminalMessages.TITLE_PROCEDURE_FOLDER_ERROR,
-                                TerminalMessages.TITLE_PROCEDURE_MESSAGE_TITLE,
-                                JOptionPane.ERROR_MESSAGE);
+                        new Message().ShowMessage(1, 4, TerminalMessages.TITLE_PROCEDURE_FOLDER_ERROR, true);
                     }
                 }
             }

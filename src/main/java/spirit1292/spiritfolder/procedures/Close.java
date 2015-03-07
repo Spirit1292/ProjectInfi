@@ -12,15 +12,23 @@ public class Close
                 null,
                 TerminalMessages.TITLE_PROCEDURE_CLOSE_QUESTION_FIRST,
                 TerminalMessages.TITLE_PROCEDURE_CLOSE_QUESTION_TITLE,
-                JOptionPane.YES_OPTION,
+                JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
 
         switch (i)
         {
             case JOptionPane.YES_OPTION:
             {
-                new TerminalMessage().ShowMessage(1, 2, TerminalMessages.TITLE_PROCEDURE_CLOSE_MESSAGE);
-                System.exit(0);
+                new Message().ShowMessage(1, 3, TerminalMessages.TITLE_PROCEDURE_CLOSE_MESSAGE, false);
+                try
+                {
+                    Thread.sleep(1000);
+                    System.exit(0);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
             }
             case JOptionPane.NO_OPTION:
             {
@@ -29,7 +37,7 @@ public class Close
                         null,
                         TerminalMessages.TITLE_PROCEDURE_CLOSE_QUESTION_SECOND,
                         TerminalMessages.TITLE_PROCEDURE_CLOSE_QUESTION_TITLE,
-                        JOptionPane.YES_OPTION,
+                        JOptionPane.OK_OPTION,
                         JOptionPane.INFORMATION_MESSAGE,
                         null,
                         options,
