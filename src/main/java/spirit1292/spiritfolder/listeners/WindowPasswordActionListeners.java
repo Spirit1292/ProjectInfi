@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import static main.java.spirit1292.spiritfolder.reference.TerminalMessages.*;
+
 public class WindowPasswordActionListeners
 {
     public static String passwordProgram;
@@ -23,7 +25,7 @@ public class WindowPasswordActionListeners
         try
         {
             AppConfig.load(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
-            passwordProgram = (String) AppConfig.get("Password");
+            passwordProgram = (String) AppConfig.get(Names.SETTING_SPIRITFOLDER_PASSWORD_TITLE);
         }
         catch (Exception ex)
         {
@@ -64,12 +66,12 @@ public class WindowPasswordActionListeners
                         if (passwordInputTwo.equals(passwordInputThree))
                         {
                             SaveConfig(Names.SETTING_SPIRITFOLDER_PASSWORD_TITLE, passwordInputThree);
-                            new Message().ShowMessage(1, 1, "Password is changed", false);
+                            new Message().ShowMessage(1, 1, TITLE_WINDOWPASSWORD_ACTION_PASSWORD_CHANGED, false);
                             ProjectInfi.windowPassword.setVisible(false);
                         }
-                        else new Message().ShowMessage(1, 4 , "Passwords do not match!!!", false);
+                        else new Message().ShowMessage(1, 4 , TITLE_WINDOWPASSWORD_ACTION_PASSWORD_MATCH_ERROR, false);
                     }
-                    else new Message().ShowMessage(1, 4 , "Password is wrong!!!", false);
+                    else new Message().ShowMessage(1, 4 , TITLE_WINDOWPASSWORD_ACTION_PASSWORD_VERIFY_ERROR, false);
                 }
                 else
                 {
@@ -79,10 +81,10 @@ public class WindowPasswordActionListeners
                     if (passwordInputTwo.equals(passwordInputThree))
                     {
                         SaveConfig(Names.SETTING_SPIRITFOLDER_PASSWORD_TITLE, passwordInputThree);
-                        new Message().ShowMessage(1, 1, "Password is created", false);
+                        new Message().ShowMessage(1, 1, TITLE_WINDOWPASSWORD_ACTION_PASSWORD_CREATED, false);
                         ProjectInfi.windowPassword.setVisible(false);
                     }
-                    else new Message().ShowMessage(1, 3 , "Passwords do not match!!!", true);
+                    else new Message().ShowMessage(1, 3 , TITLE_WINDOWPASSWORD_ACTION_PASSWORD_MATCH_ERROR, true);
                 }
             }
             catch(Exception ex)

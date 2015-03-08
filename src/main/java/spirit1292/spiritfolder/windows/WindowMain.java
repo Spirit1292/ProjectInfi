@@ -53,24 +53,17 @@ public class WindowMain extends JFrame
         try
         {
             menuBar = new JMenuBar();
-            file = new JMenu("File");
-            edit = new JMenu("Edit");
-            tools = new JMenu("Tools");
+            file = new JMenu(Names.WINDOWMAIN_MENU_FILE_NAME);
+            edit = new JMenu(Names.WINDOWMAIN_MENU_EDIT_NAME);
+            tools = new JMenu(Names.WINDOWMAIN_MENU_TOOLS_NAME);
 
-            openFolder = new JMenuItem("Open Folder");
-            if (debug)
-            {
-                debugMode = new JRadioButtonMenuItem("Debug Mode", true);
-            }
-            else
-            {
-                debugMode = new JRadioButtonMenuItem("Debug Mode", false);
-            }
-
-            changePassword = new JMenuItem("Change Password");
-            refresh = new JMenuItem("Refresh List");
-            logout = new JMenuItem("Logout");
-            exit = new JMenuItem("Exit");
+            openFolder = new JMenuItem(Names.WINDOWMAIN_MENUITEM_OPENFOLDER_NAME);
+            if (debug) debugMode = new JRadioButtonMenuItem(Names.WINDOWMAIN_MENUITEM_DEBUG_NAME, true);
+            else debugMode = new JRadioButtonMenuItem(Names.WINDOWMAIN_MENUITEM_DEBUG_NAME, false);
+            changePassword = new JMenuItem(Names.WINDOWMAIN_MENUITEM_CHANGEPASSWORD_NAME);
+            refresh = new JMenuItem(Names.WINDOWMAIN_MENUITEM_REFRESH_NAME);
+            logout = new JMenuItem(Names.WINDOWMAIN_MENUITEM_LOGOUT_NAME);
+            exit = new JMenuItem(Names.WINDOWMAIN_MENUITEM_EXIT_NAME);
 
             menuBar.add(file);
             menuBar.add(edit);
@@ -102,6 +95,9 @@ public class WindowMain extends JFrame
         {
             add(folderTree, BorderLayout.NORTH);
             panelButtons.add(buttonOpenFolder);
+            panelButtons.add(Box.createHorizontalStrut(5));
+            panelButtons.add(new JSeparator(SwingConstants.VERTICAL));
+            panelButtons.add(Box.createHorizontalStrut(5));
             panelButtons.add(buttonRefresh);
             add(panelButtons, BorderLayout.SOUTH);
             setJMenuBar(menuBar);

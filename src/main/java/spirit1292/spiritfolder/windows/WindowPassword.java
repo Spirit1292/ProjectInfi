@@ -50,7 +50,7 @@ public class WindowPassword extends JFrame
             panelButtons = new JPanel(new FlowLayout());
             panelButtons.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
             button1 = new JButton();
-            button2 = new JButton("Cancel");
+            button2 = new JButton(Names.WINDOWPASSWORD_BUTTON_CANCEL_NAME);
 
             field1 = new JTextField();
             field2 = new JTextField();
@@ -77,14 +77,14 @@ public class WindowPassword extends JFrame
             if (password != null)
             {
                 setPreferredSize(new Dimension(380, 160));
-                button1.setText("Change password");
+                button1.setText(Names.WINDOWPASSWORD_BUTTON_PASSWORD_CHANGE_NAME);
                 panelFields.add(field1, new BoxLayout(this, BoxLayout.LINE_AXIS));
                 panelFields.add(Box.createHorizontalStrut(5));
             }
             else
             {
                 setPreferredSize(new Dimension(380, 130));
-                button1.setText("Create password");
+                button1.setText(Names.WINDOWPASSWORD_BUTTON_PASSWORD_CREATE_NAME);
             }
             panelFields.add(field2, new BoxLayout(this, BoxLayout.LINE_AXIS));
             panelFields.add(Box.createHorizontalStrut(5));

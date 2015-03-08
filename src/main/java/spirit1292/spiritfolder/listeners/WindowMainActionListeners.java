@@ -1,10 +1,7 @@
 package main.java.spirit1292.spiritfolder.listeners;
 
 import main.java.spirit1292.spiritfolder.ProjectInfi;
-import main.java.spirit1292.spiritfolder.procedures.Close;
-import main.java.spirit1292.spiritfolder.procedures.FolderMonitoring;
-import main.java.spirit1292.spiritfolder.procedures.FolderOpen;
-import main.java.spirit1292.spiritfolder.procedures.Message;
+import main.java.spirit1292.spiritfolder.procedures.*;
 import main.java.spirit1292.spiritfolder.reference.Names;
 import main.java.spirit1292.spiritfolder.reference.Reference;
 import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
@@ -101,12 +98,12 @@ public class WindowMainActionListeners extends WindowMain
             if (WindowMain.debugMode.isSelected())
             {
                 SaveConfig(Names.SETTING_SPIRITFOLDER_DEBUG_TITLE, "true");
-                new Message().ShowMessage(1, 2, "Debug Mode ON", false);
+                new Message().ShowMessage(1, 2, TerminalMessages.TITLE_WINDOWMAIN_ACTION_DEBUG_ON, false);
             }
             else
             {
                 SaveConfig(Names.SETTING_SPIRITFOLDER_DEBUG_TITLE, "false");
-                new Message().ShowMessage(1, 2, "Debug Mode OFF", false);
+                new Message().ShowMessage(1, 2, TerminalMessages.TITLE_WINDOWMAIN_ACTION_DEBUG_OFF, false);
             }
         }
     };

@@ -4,8 +4,8 @@ public class TerminalMessages
 {
     //Terminal messages
     //Structures
-    public static final String MESSAGE_SYSTEM = "[System call // ";
-    public static final String MESSAGE_WINDOW = "[Window call // ";
+    public static final String MESSAGE_SYSTEM = "[System call / ";
+    public static final String MESSAGE_WINDOW = "[Window call / ";
     public static final String MESSAGE_DONE = "Done]: ";
     public static final String MESSAGE_INFO = "Info]: ";
     public static final String MESSAGE_WARN = "Warn]: ";
@@ -37,6 +37,8 @@ public class TerminalMessages
     public static final String TITLE_WINDOWMAIN_ACTION_FOLDER_OPEN_ERROR = "Folder is not been opened!!!";
     public static final String TITLE_WINDOWMAIN_ACTION_FOLDER_LIST_REFRESH_DONE = "Refreshing FolderList...";
     public static final String TITLE_WINDOWMAIN_ACTION_FOLDER_LIST_REFRESH_ERROR = "Something wrong in refreshing!!!";
+    public static final String TITLE_WINDOWMAIN_ACTION_DEBUG_ON = "Debug Mode ON";
+    public static final String TITLE_WINDOWMAIN_ACTION_DEBUG_OFF = "Debug Mode OFF";
     //WindowLogin.java
     public static final String TITLE_WINDOWLOGIN_OPEN_MESSAGE = "Try to open password window...";
     public static final String TITLE_WINDOWLOGIN_OPEN_ERROR = "Something wrong in password window calling!!!";
@@ -68,9 +70,11 @@ public class TerminalMessages
     public static final String TITLE_WINDOWPASSWORD_DEICONFIED = "Password window is maximized";
     public static final String TITLE_WINDOWPASSWORD_ACTIVATED = "Password window is activated";
     public static final String TITLE_WINDOWPASSWORD_DEACTIVATED = "Password window is deactivated";
-
     //WindowPasswordActionListeners.java
-
+    public static final String TITLE_WINDOWPASSWORD_ACTION_PASSWORD_CREATED = "Password is created";
+    public static final String TITLE_WINDOWPASSWORD_ACTION_PASSWORD_CHANGED = "Password is changed";
+    public static final String TITLE_WINDOWPASSWORD_ACTION_PASSWORD_MATCH_ERROR = "Passwords do not match!!!";
+    public static final String TITLE_WINDOWPASSWORD_ACTION_PASSWORD_VERIFY_ERROR = "Password is wrong!!!";
     //LookAndFeel.java
     public static final String TITLE_LOOKANDFEEL_INSTALL_MESSAGE = "System LookAndFeel installed: ";
     public static final String TITLE_LOOKANDFEEL_IS_INSTALL = "LookAndFeel is already installed: ";
@@ -83,7 +87,7 @@ public class TerminalMessages
     public static final String TITLE_SETTINGS_SAVE_DONE = "Saving of settings is complete";
     public static final String TITLE_SETTINGS_SAVE_ERROR = "Saving of settings is broken!!!";
     //Close.java
-    public static final String TITLE_PROCEDURE_CLOSE_QUESTION_TITLE = "Program Message";
+    public static final String TITLE_PROCEDURE_CLOSE_QUESTION_TITLE = "Program message";
     public static final String TITLE_PROCEDURE_CLOSE_QUESTION_FIRST = "Close program?";
     public static final String TITLE_PROCEDURE_CLOSE_QUESTION_SECOND = "Why???";
     public static final String TITLE_PROCEDURE_CLOSE_ANSWER_SECOND = "Because Fuck YOU!!!";
@@ -91,19 +95,19 @@ public class TerminalMessages
     //OpenFolder.java
     public static final String TITLE_PROCEDURE_FOLDER_OPEN = "Set destination";
     public static final String TITLE_PROCEDURE_FOLDER_EXISTS = "Folder is exists!!!";
-    public static final String TITLE_PROCEDURE_FOLDER_CREATE = "Folder Created. Cool!";
-    public static final String TITLE_PROCEDURE_FOLDER_ERROR = "Folder in not created!!!";
-    public static final String TITLE_PROCEDURE_FOLDER_MISSING = "File Not Found";
-    public static final String TITLE_PROCEDURE_MESSAGE_TITLE = "Program Message";
+    public static final String TITLE_PROCEDURE_FOLDER_CREATE = "Folder created. Cool!";
+    public static final String TITLE_PROCEDURE_FOLDER_ERROR = "Folder not created!!!";
+    public static final String TITLE_PROCEDURE_FOLDER_MISSING = "File not found";
+    public static final String TITLE_PROCEDURE_MESSAGE_TITLE = "Program message";
     public static final String TITLE_PROCEDURE_MESSAGE_BUTTON_1 = "SWEET :)";
-    public static final String TITLE_PROCEDURE_MESSAGE_BUTTON_2 = "Maybe it cool :/";
+    public static final String TITLE_PROCEDURE_MESSAGE_BUTTON_2 = "Maybe It Cool :/";
     //FolderMonitoring.java
     public static final String TITLE_MONITORING_ITEMS_TYPE_FILE = "Found file: ";
     public static final String TITLE_MONITORING_ITEMS_TYPE_FOLDER = "Found folder: ";
-    public static final String TITLE_MONITORING_INIT_FILELIST_DONE = "File list is loaded";
-    public static final String TITLE_MONITORING_INIT_FILELIST_ERROR = "File list is not loaded!!!";
-    public static final String TITLE_MONITORING_INIT_TREE_DONE = "FolderTree is created";
-    public static final String TITLE_MONITORING_INIT_TREE_ERROR = "FolderTree is not created!!!";
+    public static final String TITLE_MONITORING_INIT_FILELIST_DONE = "File list loaded";
+    public static final String TITLE_MONITORING_INIT_FILELIST_ERROR = "File list not loaded!!!";
+    public static final String TITLE_MONITORING_INIT_TREE_DONE = "FolderTree created";
+    public static final String TITLE_MONITORING_INIT_TREE_ERROR = "FolderTree not created!!!";
     //Messages.java
     public static final String TITLE_MESSAGE_INDEX_ERROR = "Invalid message index!!!";
 }
