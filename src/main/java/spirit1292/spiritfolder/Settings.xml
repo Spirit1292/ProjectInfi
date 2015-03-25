@@ -1,0 +1,13 @@
+<?xml version = '1.0'?>
+<app-settings>
+ <properties>
+  <property key="FolderDestination">D:\SpiritFolder</property>
+  <property key="LanguageCountry">US</property>
+  <property key="FontSize">14</property>
+  <property key="VersionDev">287</property>
+  <property key="DebugMode">false</property>
+  <property key="FontName">Verdana</property>
+  <property key="LanguageName">en</property>
+  <property key="Password">123</property>
+ </properties>
+</app-settings>

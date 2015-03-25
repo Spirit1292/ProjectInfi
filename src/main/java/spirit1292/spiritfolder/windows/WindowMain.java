@@ -3,7 +3,6 @@ package main.java.spirit1292.spiritfolder.windows;
 import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.listeners.WindowMainActionListeners;
 import main.java.spirit1292.spiritfolder.listeners.WindowMainListeners;
-import main.java.spirit1292.spiritfolder.listeners.WindowMainMouseListeners;
 import main.java.spirit1292.spiritfolder.procedures.FolderMonitoring;
 import main.java.spirit1292.spiritfolder.procedures.Message;
 import main.java.spirit1292.spiritfolder.procedures.ScreenResolution;
@@ -145,7 +144,7 @@ public class WindowMain extends JFrame
 
     public void MouseListeners()
     {
-        folderTree.addMouseListener(new WindowMainMouseListeners());
+        //folderTree.addMouseListener(new WindowMainMouseListeners());
     }
 
 
