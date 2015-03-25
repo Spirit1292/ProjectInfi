@@ -1,8 +1,8 @@
 package main.java.spirit1292.spiritfolder.settings;
 
+import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.procedures.Message;
 import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 
 import javax.swing.*;
 
@@ -15,32 +15,38 @@ public class LookAndFeel
             if (Reference.LOOKANDFEEL_SHORT_JAVA.equals(UIManager.getLookAndFeel().getName()))
             {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                new Message().ShowMessage(1, 1, TerminalMessages.TITLE_LOOKANDFEEL_INSTALL_MESSAGE +
-                        UIManager.getLookAndFeel().getName(), false);
+                if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_LOOKANDFEEL_INSTALL_DONE") + " " +
+                        UIManager.getLookAndFeel().getName(), null);
             }
             else
             {
-                new Message().ShowMessage(1, 2, TerminalMessages.TITLE_LOOKANDFEEL_IS_INSTALL +
-                        UIManager.getLookAndFeel().getName(), false);
+                if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_LOOKANDFEEL_INSTALL_CANCEL") + " " +
+                        UIManager.getLookAndFeel().getName(), null);
             }
         }
-        catch (UnsupportedLookAndFeelException ex)
+        catch (UnsupportedLookAndFeelException ulafex)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_LOOKANDFEEL_ERROR_UNSUPPORTED, true);
-            new Message().ShowMessage(1, 2, TerminalMessages.TITLE_LOOKANDFEEL_CURRENT +
-                    UIManager.getLookAndFeel().getDescription(), false);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_LOOKANDFEEL_ERROR_UNSUPPORTED"), null);
+            new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_LOOKANDFEEL_CURRENT") + " " +
+                    UIManager.getLookAndFeel().getDescription(), ulafex);
         }
-        catch (ClassNotFoundException ex)
+        catch (ClassNotFoundException cnfex)
         {
             // handle exception
         }
-        catch (InstantiationException ex)
+        catch (InstantiationException iex)
         {
             // handle exception
         }
-        catch (IllegalAccessException ex)
+        catch (IllegalAccessException iaex)
         {
             // handle exception
+        }
+        catch (Exception ex)
+        {
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_LOOKANDFEEL_ERROR"), ex);
         }
     }
 }

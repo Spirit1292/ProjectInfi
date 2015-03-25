@@ -1,40 +1,26 @@
 package main.java.spirit1292.spiritfolder.procedures;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class ScreenResolution
 {
-    Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    public static int horizontalSizeString;
+    public static int verticalSizeString;
 
-    public int GetHorizontalRes()
+    public static int GetHorizontalRes()
     {
-        return(ScreenSize.width);
+        horizontalSizeString = Toolkit.getDefaultToolkit().getScreenSize().width;
+        return horizontalSizeString;
     }
 
-    public int GetVerticalRes()
+    public static int GetVerticalRes()
     {
-        return(ScreenSize.height);
+        verticalSizeString = Toolkit.getDefaultToolkit().getScreenSize().height;
+        return verticalSizeString;
     }
 
-    public static void ShowScreenRes()
+    public static String ScreenResString()
     {
-        String HorizontalSizeString =
-                String.valueOf(new ScreenResolution().GetHorizontalRes());
-        String VerticalSizeString =
-                String.valueOf(new ScreenResolution().GetVerticalRes());
-
-        JOptionPane.showMessageDialog(
-                null,
-                "Information about Screen Resolution:\n"
-                + "Width of Screen: " + HorizontalSizeString + "\n"
-                + "Height of Screen: " + VerticalSizeString,
-                "Program Message",
-                JOptionPane.DEFAULT_OPTION );
-    }
-
-    public static void main(String[] args)
-    {
-
+        return "Screen resolution: " + GetHorizontalRes() + ":" + GetVerticalRes();
     }
 }

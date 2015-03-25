@@ -1,43 +1,32 @@
 package main.java.spirit1292.spiritfolder.procedures;
 
-import main.java.spirit1292.spiritfolder.reference.Names;
-import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
-import main.java.spirit1292.spiritfolder.settings.AppConfig;
+import main.java.spirit1292.spiritfolder.ProjectInfi;
+import main.java.spirit1292.spiritfolder.settings.AppLang;
 
 import java.awt.Desktop;
 import java.io.File;
 
 public class FolderOpen
 {
-    static String spiritFolderDestination;
+    public static Desktop desktop;
 
-    public static void LoadConfig()
+    public static void main(String[] args)
     {
-        try
-        {
-            AppConfig.load(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
-            spiritFolderDestination = (String) AppConfig.get(Names.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) throws Exception
-    {
-        LoadConfig();
-        Desktop desktop = Desktop.getDesktop();
+        desktop = Desktop.getDesktop();
 
         try
         {
-            desktop.open(new File(spiritFolderDestination));
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_WINDOWMAIN_ACTION_FOLDER_OPEN_DONE, false);
+            new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_OPEN_BEGIN"), null);
+            desktop.open(new File(String.valueOf(ProjectInfi.folderDestination)));
+            new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_OPEN_DONE"), null);
         }
         catch (IllegalArgumentException iae)
         {
-            new Message().ShowMessage(1, 4 ,TerminalMessages.TITLE_PROCEDURE_FOLDER_MISSING, true);
+            new Message().ShowMessage(1, 4 ,AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_OPEN_MISSING"), iae);
+        }
+        catch (Exception ex)
+        {
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_OPEN_ERROR"), ex);
         }
     }
 }

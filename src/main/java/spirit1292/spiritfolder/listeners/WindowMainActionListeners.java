@@ -2,10 +2,9 @@ package main.java.spirit1292.spiritfolder.listeners;
 
 import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.procedures.*;
-import main.java.spirit1292.spiritfolder.reference.Names;
 import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 import main.java.spirit1292.spiritfolder.settings.AppConfig;
+import main.java.spirit1292.spiritfolder.settings.AppLang;
 import main.java.spirit1292.spiritfolder.windows.WindowMain;
 
 import java.awt.event.ActionEvent;
@@ -14,44 +13,12 @@ import java.io.File;
 
 public class WindowMainActionListeners extends WindowMain
 {
-    public static void LoadConfig()
-    {
-        try
-        {
-            AppConfig.load(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-
-    public static void SaveConfig(String name, String value)
-    {
-        try
-        {
-            AppConfig.put(name, value);
-            AppConfig.save(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-
     public static ActionListener openFolder = new ActionListener()
     {
         @Override
         public void actionPerformed(ActionEvent ae1)
         {
-            try
-            {
                 FolderOpen.main(null);
-            }
-            catch (Exception ex1)
-            {
-                new Message().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOWMAIN_ACTION_FOLDER_OPEN_ERROR, true);
-            }
         }
     };
 
@@ -69,14 +36,7 @@ public class WindowMainActionListeners extends WindowMain
         @Override
         public void actionPerformed(ActionEvent ae2)
         {
-            try
-            {
-                FolderMonitoring.UpdateFolderTree();
-            }
-            catch (Exception ex2)
-            {
-                new Message().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOWMAIN_ACTION_FOLDER_LIST_REFRESH_ERROR, true);
-            }
+            FolderMonitoring.UpdateFolderTree();
         }
     };
 
@@ -95,16 +55,33 @@ public class WindowMainActionListeners extends WindowMain
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if (WindowMain.debugMode.isSelected())
+            try
             {
-                SaveConfig(Names.SETTING_SPIRITFOLDER_DEBUG_TITLE, "true");
-                new Message().ShowMessage(1, 2, TerminalMessages.TITLE_WINDOWMAIN_ACTION_DEBUG_ON, false);
+                if (WindowMain.debugMode.isSelected())
+                {
+                    ProjectInfi.SaveConfig(Reference.SETTING_DEBUG, "true");
+                    new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_WINDOW_MAIN_ACTION_DEBUG_ON"), null);
+                }
+                else
+                {
+                    AppConfig.put(Reference.SETTING_DEBUG, "false");
+                    AppConfig.save(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
+                    new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_WINDOW_MAIN_ACTION_DEBUG_OFF"), null);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                SaveConfig(Names.SETTING_SPIRITFOLDER_DEBUG_TITLE, "false");
-                new Message().ShowMessage(1, 2, TerminalMessages.TITLE_WINDOWMAIN_ACTION_DEBUG_OFF, false);
+                new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_MAIN_ACTION_DEBUG_MODE_ERROR"), ex);
             }
+        }
+    };
+
+    public static ActionListener addFile = new ActionListener()
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            FolderAdd.main(null);
         }
     };
 

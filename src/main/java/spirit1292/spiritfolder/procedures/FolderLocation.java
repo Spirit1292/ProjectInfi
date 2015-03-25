@@ -1,90 +1,60 @@
 package main.java.spirit1292.spiritfolder.procedures;
 
-import main.java.spirit1292.spiritfolder.reference.Names;
+import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
-import main.java.spirit1292.spiritfolder.settings.AppConfig;
+import main.java.spirit1292.spiritfolder.settings.AppLang;
 
 import javax.swing.*;
 import java.io.File;
 
 public class FolderLocation extends JFrame
 {
+    public static JFileChooser folderChooser;
+    public static File folderDestination;
+
+    public static void SpiritFolder()
+    {
+        int ret = folderChooser.showDialog(null, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_LOCATION_SET"));
+        if (ret == JFileChooser.APPROVE_OPTION)
+        {
+            try
+            {
+                folderDestination = new File (folderChooser.getSelectedFile().toString()
+                        + Reference.APP_FOLDER_NAME);
+                folderDestination.mkdirs();
+                ProjectInfi.SaveConfig(Reference.SETTING_FOLDER_DESTINATION, folderDestination.toString());
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_LOCATION_SELECTED_DONE"), null);
+            }
+            catch (Exception ex)
+            {
+                new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_LOCATION_SELECTED_ERROR"), ex);
+            }
+        }
+        else
+        {
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_LOCATION_SELECTED_CANCEL"), null);
+            System.exit(0);
+        }
+    }
+
     public static void main(String[] args) throws Exception
     {
-        File fileConfig = new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME);
-        AppConfig.load(fileConfig);
-        String spiritFolderDestination = (String) AppConfig.get(Names.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
-
-        JFileChooser folderChooser = new JFileChooser(spiritFolderDestination);
+        folderChooser = new JFileChooser();
         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         folderChooser.setAcceptAllFileFilterUsed(false);
 
+        if (ProjectInfi.folderDestination.exists())
+            new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_LOCATION_EXISTS_YES"), null);
+        else if (!ProjectInfi.folderDestination.exists()
+                && !ProjectInfi.folderDestination.equals(Reference.SETTING_FOLDER_DESTINATION_NULL))
         {
-            if (spiritFolderDestination != null)
-            {
-                new Message().ShowMessage(1, 2, TerminalMessages.TITLE_PROCEDURE_FOLDER_EXISTS, false);
-            }
-            else
-            {
-                File folderCreating = new File(spiritFolderDestination);
-                int ret = folderChooser.showDialog(null, TerminalMessages.TITLE_PROCEDURE_FOLDER_OPEN);
-                if (ret == JFileChooser.APPROVE_OPTION)
-                    spiritFolderDestination = folderChooser.getSelectedFile().toString() + Reference.APP_NAME;
-                {
-                    try
-                    {
-                        if (folderCreating.exists())
-                        {
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    TerminalMessages.TITLE_PROCEDURE_FOLDER_EXISTS,
-                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_TITLE,
-                                    JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        else if (!folderCreating.exists())
-                        {
-                            folderCreating = new File(
-                                    (String) AppConfig.get(Names.SETTING_SPIRITFOLDER_DESTINATION_TITLE));
-                            folderCreating.mkdirs();
-                            Object[] options = {
-                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_1,
-                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_2
-                            };
-                            JOptionPane.showOptionDialog(
-                                    null,
-                                    TerminalMessages.TITLE_PROCEDURE_FOLDER_CREATE,
-                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_TITLE,
-                                    JOptionPane.OK_OPTION,
-                                    JOptionPane.INFORMATION_MESSAGE,
-                                    null,
-                                    options,
-                                    options[0]);
-                        }
-                        else
-                        {
-                            folderCreating.mkdirs();
-                            AppConfig.put(Names.SETTING_SPIRITFOLDER_DESTINATION_TITLE, spiritFolderDestination);
-                            AppConfig.save(fileConfig);
-                            Object[] options = {TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_1,
-                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_BUTTON_2};
-                            JOptionPane.showOptionDialog(
-                                    null,
-                                    TerminalMessages.TITLE_PROCEDURE_FOLDER_CREATE,
-                                    TerminalMessages.TITLE_PROCEDURE_MESSAGE_TITLE,
-                                    JOptionPane.OK_OPTION,
-                                    JOptionPane.INFORMATION_MESSAGE,
-                                    null,
-                                    options,
-                                    options[0]);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        new Message().ShowMessage(1, 4, TerminalMessages.TITLE_PROCEDURE_FOLDER_ERROR, true);
-                    }
-                }
-            }
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_LOCATION_EXISTS_NO"), null);
+            SpiritFolder();
+        }
+        else
+        {
+            new Message().ShowMessage(1, 3, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_LOCATION_SELECT"), null);
+            SpiritFolder();
         }
     }
 }

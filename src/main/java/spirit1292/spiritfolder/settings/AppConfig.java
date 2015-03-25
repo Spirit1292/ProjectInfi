@@ -2,7 +2,6 @@ package main.java.spirit1292.spiritfolder.settings;
 
 import com.sun.org.apache.xerces.internal.dom.DOMImplementationImpl;
 import main.java.spirit1292.spiritfolder.procedures.Message;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,41 +14,31 @@ public final class AppConfig
 {
     private HashMap fHashMap;
 
-    private AppConfig()
-    {
-        fHashMap = new HashMap();
-    }
+    private AppConfig() {fHashMap = new HashMap();}
 
     private static AppConfig SINGLETON;
-    static
-    {
-        SINGLETON = new AppConfig();
-    }
+    static {SINGLETON = new AppConfig();}
 
-    public static Object get(String key)
-    {
-        return SINGLETON.fHashMap.get(key);
-    }
+    public static String get(String key) {return SINGLETON.fHashMap.get(key).toString();}
 
-    public static Object get(String key, Object deflt)
+    public static String get(String key, String deflt)
     {
         try
         {
             Object obj = SINGLETON.fHashMap.get(key);
             if (obj == null)
             {
-                new Message().ShowMessage(1, 1, TerminalMessages.TITLE_SETTINGS_LOAD_DEFAULT_DONE
-                        + ": " + deflt, false);
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_SETTINGS_GET_DEFAULT_DONE")
+                        + ": " + deflt, null);
                 return deflt;
             }
             else
             {
-                return obj;
+                return obj.toString();
             }
         }
         catch (Exception e)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_SETTINGS_LOAD_ERROR, true);
             return null;
         }
     }
@@ -61,8 +50,8 @@ public final class AppConfig
             Object obj = SINGLETON.fHashMap.get(key);
             if (obj == null)
             {
-                new Message().ShowMessage(1, 1, TerminalMessages.TITLE_SETTINGS_LOAD_DEFAULT_DONE
-                        + ": " + deflt, false);
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_SETTINGS_GET_DEFAULT_DONE")
+                        + ": " + deflt, null);
                 return deflt;
             }
             else
@@ -72,8 +61,7 @@ public final class AppConfig
         }
         catch (Exception e)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_SETTINGS_LOAD_ERROR, true);
-            return -1;
+            return 100500;
         }
     }
 
@@ -86,7 +74,6 @@ public final class AppConfig
         }
         catch (Exception e)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_SETTINGS_LOAD_ERROR, true);
             return false;
         }
     }
@@ -122,18 +109,18 @@ public final class AppConfig
                 String key = aSet.toString();
                 Element propertyElement = doc.createElement("property");
                 propertyElement.setAttribute("key", key);
-                Text nameText = doc.createTextNode(get(key).toString());
+                Text nameText = doc.createTextNode(get(key));
                 propertyElement.appendChild(nameText);
                 propertiesElement.appendChild(propertyElement);
             }
             DOMSerializer serializer = new DOMSerializer();
             serializer.serialize(doc, file);
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_SETTINGS_SAVE_DONE, false);
+            //new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_SETTINGS_SAVE_DONE"), null);
             return true;
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_SETTINGS_SAVE_ERROR, true);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_SETTINGS_SAVE_ERROR"), ex);
             return false;
         }
     }
@@ -175,10 +162,12 @@ public final class AppConfig
                     }
                 }
             }
+            //new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_SETTINGS_LOAD_DONE"), null);
             return true;
         }
         else
         {
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_SETTINGS_LOAD_ERROR"), null);
             return false;
         }
     }

@@ -1,9 +1,7 @@
 package main.java.spirit1292.spiritfolder.procedures;
 
-import main.java.spirit1292.spiritfolder.reference.Names;
-import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
-import main.java.spirit1292.spiritfolder.settings.AppConfig;
+import main.java.spirit1292.spiritfolder.ProjectInfi;
+import main.java.spirit1292.spiritfolder.settings.AppLang;
 import main.java.spirit1292.spiritfolder.windows.WindowMain;
 
 import javax.swing.*;
@@ -13,67 +11,74 @@ import java.io.File;
 
 public class FolderMonitoring
 {
-    static String spiritFolderDestination;
-    public DefaultMutableTreeNode root;
+    public static DefaultMutableTreeNode root;
 
-    public static void LoadConfig()
-    {
-        try
-        {
-            AppConfig.load(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
-            spiritFolderDestination = (String) AppConfig.get(Names.SETTING_SPIRITFOLDER_DESTINATION_TITLE);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
+    public static int folderCount;
+    public static int fileCount;
 
     public void GetList(DefaultMutableTreeNode node, File file) throws Exception
     {
-        LoadConfig();
         if (!file.isDirectory())
         {
-            new Message().ShowMessage(1, 2, TerminalMessages.TITLE_MONITORING_ITEMS_TYPE_FILE + file.getName(), false);
-            DefaultMutableTreeNode child = new DefaultMutableTreeNode(file);
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_MONITORING_ITEM_TYPE_FILE")
+                    + " " + file.getName(), null);
+            DefaultMutableTreeNode child = new DefaultMutableTreeNode(file.getName());
             node.add(child);
+            fileCount = fileCount+1;
         }
+
         else
         {
-            new Message().ShowMessage(1, 2, TerminalMessages.TITLE_MONITORING_ITEMS_TYPE_FOLDER + file.getName(), false);
-            DefaultMutableTreeNode child = new DefaultMutableTreeNode(file);
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_MONITORING_ITEM_TYPE_FOLDER")
+                        + " " + file.getName(), null);
+            DefaultMutableTreeNode child = new DefaultMutableTreeNode(file.getName());
             node.add(child);
             File fList[] = file.listFiles();
             for (File aFList : fList) GetList(child, aFList);
+            folderCount = folderCount+1;
         }
     }
 
     public JTree FolderTree()
     {
-        LoadConfig();
-
         try
         {
             root = new DefaultMutableTreeNode("root", true);
-            new FolderMonitoring().GetList(root, new File(spiritFolderDestination));
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_MONITORING_INIT_FILELIST_DONE, false);
+            if (ProjectInfi.debugMode)
+            {
+                new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_MONITORING_FILE_LIST_START"), null);
+                System.out.println("-----------------------------------------------------------------------");
+            }
+            Thread.sleep(1500);
+            new FolderMonitoring().GetList(root, new File(String.valueOf(ProjectInfi.folderDestination)));
+            if (ProjectInfi.debugMode)
+            {
+                System.out.println("-----------------------------------------------------------------------");
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_MONITORING_FILE_LIST_DONE"), null);
+                new Message().ShowMessage(1, 2, String.valueOf(folderCount - 1 + " folders / "
+                        + fileCount + " files"), null);
+            }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_MONITORING_INIT_FILELIST_ERROR, true);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_MONITORING_FILE_LIST_ERROR"), ex);
         }
 
         try
         {
             JTree treeFolder = new JTree(root);
             treeFolder.setRootVisible(false);
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_MONITORING_INIT_TREE_DONE, false);
+            treeFolder.setScrollsOnExpand(true);
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_MONITORING_TREE_DONE"), null);
             return treeFolder;
 
         }
         catch (Exception e)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_MONITORING_INIT_TREE_ERROR, true);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_MONITORING_TREE_ERROR"), null);
             return null;
         }
     }
@@ -84,13 +89,24 @@ public class FolderMonitoring
         {
             DefaultTreeModel model = (DefaultTreeModel)WindowMain.folderTree.getModel();
             DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
-            new FolderMonitoring().GetList(root, new File(spiritFolderDestination));
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_WINDOWMAIN_ACTION_FOLDER_LIST_REFRESH_DONE, false);
+            if (ProjectInfi.debugMode)
+            {
+                new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_MONITORING_FOLDER_LIST_REFRESH_BEGIN"), null);
+                System.out.println("-----------------------------------------------------------------------");
+            }
+                Thread.sleep(1500);
+                root.removeAllChildren();
+                new FolderMonitoring().GetList(root, new File(String.valueOf(ProjectInfi.folderDestination)));
+            if (ProjectInfi.debugMode)
+            {
+                System.out.println("-----------------------------------------------------------------------");
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_MONITORING_FOLDER_LIST_REFRESH_DONE"), null);
+            }
             model.reload(root);
         }
         catch (Exception ex)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOWMAIN_ACTION_FOLDER_LIST_REFRESH_ERROR, true);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_MONITORING_FOLDER_LIST_REFRESH_ERROR"), ex);
         }
     }
 }

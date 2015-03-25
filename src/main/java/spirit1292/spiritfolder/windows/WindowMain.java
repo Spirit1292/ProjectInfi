@@ -1,116 +1,109 @@
 package main.java.spirit1292.spiritfolder.windows;
 
+import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.listeners.WindowMainActionListeners;
 import main.java.spirit1292.spiritfolder.listeners.WindowMainListeners;
+import main.java.spirit1292.spiritfolder.listeners.WindowMainMouseListeners;
 import main.java.spirit1292.spiritfolder.procedures.FolderMonitoring;
 import main.java.spirit1292.spiritfolder.procedures.Message;
-import main.java.spirit1292.spiritfolder.reference.Names;
-import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
-import main.java.spirit1292.spiritfolder.settings.AppConfig;
+import main.java.spirit1292.spiritfolder.procedures.ScreenResolution;
+import main.java.spirit1292.spiritfolder.procedures.StatusBar;
+import main.java.spirit1292.spiritfolder.settings.AppLang;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
+import static main.java.spirit1292.spiritfolder.reference.Reference.*;
 
 public class WindowMain extends JFrame
 {
+    public static int windowWidth = ScreenResolution.GetHorizontalRes()/2;
+    public static int windowHeight = ScreenResolution.GetVerticalRes()/2;
+
     public static JMenuBar menuBar;
     public static JMenu file, edit, tools;
-    public static JMenuItem openFolder, logout, changePassword, refresh, exit;
+    public static JMenuItem addFile, openFolder, logout, changePassword, refresh, exit;
     public static JRadioButtonMenuItem debugMode;
-
     public static JTree folderTree;
-    public static JPanel panelButtons;
-    public static JButton buttonOpenFolder;
-    public static JButton buttonRefresh;
-
-    public static Boolean debug;
-
-    public static void LoadConfig()
-    {
-        try
-        {
-            AppConfig.load(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
+    public static StatusBar statusBar;
+    public static JTextArea debugLog;
 
     public WindowMain()
     {
-        super(Reference.APP_NAME + ": " + Names.WINDOWMAIN_NAME);
-            LoadConfig();
-            debug = AppConfig.getBoolean(Names.SETTING_SPIRITFOLDER_DEBUG_TITLE);
+        super();
+        setTitle(APP_NAME + " " + APP_VERSION + "." +ProjectInfi.versionDev.toString()
+                + " - [" + ProjectInfi.folderDestination + "]");
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        setPreferredSize(new Dimension(600, 300));
+        setPreferredSize(new Dimension(windowWidth, windowHeight));
+        setFont(new Font(ProjectInfi.fontName, Font.PLAIN, ProjectInfi.fontSize));
         setResizable(true);
-        setIconImage(new ImageIcon(Reference.APP_ICON_LOCATION + Reference.APP_ICON_NAME).getImage());
+        setIconImage(new ImageIcon(APP_ICON_LOCATION + APP_ICON_NAME).getImage());
 
         try
         {
+            folderTree = new FolderMonitoring().FolderTree();
+            statusBar = new StatusBar();
+
             menuBar = new JMenuBar();
-            file = new JMenu(Names.WINDOWMAIN_MENU_FILE_NAME);
-            edit = new JMenu(Names.WINDOWMAIN_MENU_EDIT_NAME);
-            tools = new JMenu(Names.WINDOWMAIN_MENU_TOOLS_NAME);
+            file = new JMenu(AppLang.Lang("WINDOW_MAIN_MENU_FILE_NAME"));
+            edit = new JMenu(AppLang.Lang("WINDOW_MAIN_MENU_EDIT_NAME"));
+            tools = new JMenu(AppLang.Lang("WINDOW_MAIN_MENU_TOOLS_NAME"));
 
-            openFolder = new JMenuItem(Names.WINDOWMAIN_MENUITEM_OPENFOLDER_NAME);
-            if (debug) debugMode = new JRadioButtonMenuItem(Names.WINDOWMAIN_MENUITEM_DEBUG_NAME, true);
-            else debugMode = new JRadioButtonMenuItem(Names.WINDOWMAIN_MENUITEM_DEBUG_NAME, false);
-            changePassword = new JMenuItem(Names.WINDOWMAIN_MENUITEM_CHANGEPASSWORD_NAME);
-            refresh = new JMenuItem(Names.WINDOWMAIN_MENUITEM_REFRESH_NAME);
-            logout = new JMenuItem(Names.WINDOWMAIN_MENUITEM_LOGOUT_NAME);
-            exit = new JMenuItem(Names.WINDOWMAIN_MENUITEM_EXIT_NAME);
+            addFile = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ADD_FILES_NAME"));
+            openFolder = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_OPENFOLDER_NAME"));
+                if (ProjectInfi.debugMode)
+                    debugMode = new JRadioButtonMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_DEBUG_NAME"), true);
+                else
+                    debugMode = new JRadioButtonMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_DEBUG_NAME"), false);
+            changePassword = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_CHANGE_PASSWORD_NAME"));
+            refresh = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_REFRESH_NAME"));
+            logout = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_LOGOUT_NAME"));
+            exit = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_EXIT_NAME"));
 
+            debugLog = new JTextArea(null, null, 0, 70);
+
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_MAIN_CREATE_ITEMS_DONE"), null);
+        }
+        catch (Exception ex)
+        {
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_MAIN_CREATE_ITEMS_ERROR"), ex);
+        }
+
+        try
+        {
             menuBar.add(file);
             menuBar.add(edit);
             menuBar.add(tools);
-
+            file.add(addFile);
             file.add(openFolder);
             file.addSeparator();
             file.add(logout);
             file.add(exit);
-
             tools.add(debugMode);
             tools.addSeparator();
             tools.add(changePassword);
-
             edit.add(refresh);
 
-            panelButtons = new JPanel(new FlowLayout());
-            buttonOpenFolder = new JButton(Names.WINDOWMAIN_BUTTON_OPENFOLDER_NAME);
-            buttonRefresh = new JButton(Names.WINDOWMAIN_BUTTON_REFRESH_NAME);
-            folderTree = new FolderMonitoring().FolderTree();
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_WINDOWMAIN_INIT_CREATEITEMS_DONE, false);
-        }
-        catch (Exception ex)
-        {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOWMAIN_INIT_CREATEITEMS_ERROR, true);
-        }
+            debugLog.setOpaque(true);
+            debugLog.setEditable(false);
 
-        try
-        {
-            add(folderTree, BorderLayout.NORTH);
-            panelButtons.add(buttonOpenFolder);
-            panelButtons.add(Box.createHorizontalStrut(5));
-            panelButtons.add(new JSeparator(SwingConstants.VERTICAL));
-            panelButtons.add(Box.createHorizontalStrut(5));
-            panelButtons.add(buttonRefresh);
-            add(panelButtons, BorderLayout.SOUTH);
+            add(folderTree, BorderLayout.CENTER);
+            add(debugLog, BorderLayout.EAST);
             setJMenuBar(menuBar);
+            getContentPane().add(statusBar, java.awt.BorderLayout.SOUTH);
             pack();
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_WINDOWMAIN_INIT_ADDITEMS_DONE, false);
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_MAIN_ADD_ITEMS_DONE"), null);
         }
         catch (Exception ex)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOWMAIN_INIT_ADDITEMS_ERROR, true);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_MAIN_ADD_ITEMS_ERROR"), ex);
         }
 
         ActionListeners();
         WindowListeners();
+        //MouseListeners();
 
         setLocationRelativeTo(null);
         setVisible(false);
@@ -121,19 +114,18 @@ public class WindowMain extends JFrame
         try
         {
             debugMode.addActionListener(WindowMainActionListeners.debugMode);
+            addFile.addActionListener(WindowMainActionListeners.addFile);
             openFolder.addActionListener(WindowMainActionListeners.openFolder);
             logout.addActionListener(WindowMainActionListeners.logout);
             exit.addActionListener(WindowMainActionListeners.exit);
             refresh.addActionListener(WindowMainActionListeners.folderList);
             changePassword.addActionListener(WindowMainActionListeners.changePassword);
-
-            buttonOpenFolder.addActionListener(WindowMainActionListeners.openFolder);
-            buttonRefresh.addActionListener(WindowMainActionListeners.folderList);
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_WINDOWMAIN_INIT_ADDACTIONLISTENERS_DONE, false);
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_MAIN_ADD_ACTION_LISTENERS_DONE"), null);
         }
         catch (Exception ex)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOWMAIN_INIT_ADDACTIONLISTENERS_ERROR, true);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_MAIN_ADD_ACTION_LISTENERS_ERROR"), ex);
         }
     }
 
@@ -142,24 +134,32 @@ public class WindowMain extends JFrame
         try
         {
             super.addWindowListener(new WindowMainListeners());
-            new Message().ShowMessage(1, 1, TerminalMessages.TITLE_WINDOWMAIN_INIT_ADDWINDOWLISTENERS_DONE, false);
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_MAIN_ADD_WINDOW_LISTENERS_DONE"), null);
         }
         catch (Exception ex)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOWMAIN_INIT_ADDWINDOWLISTENERS_ERROR, false);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_MAIN_ADD_WINDOW_LISTENERS_ERROR"), ex);
         }
     }
+
+    public void MouseListeners()
+    {
+        folderTree.addMouseListener(new WindowMainMouseListeners());
+    }
+
 
     public static void main(String[] args)
     {
         try
         {
-            new Message().ShowMessage(1, 2, TerminalMessages.TITLE_WINDOWMAIN_OPEN_MESSAGE, false);
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_WINDOW_MAIN_OPEN_MESSAGE"), null);
             new WindowMain();
         }
         catch (Exception ex)
         {
-            new Message().ShowMessage(1, 4, TerminalMessages.TITLE_WINDOWMAIN_OPEN_ERROR, true);
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_MAIN_OPEN_ERROR"), ex);
         }
     }
 }

@@ -1,50 +1,30 @@
 package main.java.spirit1292.spiritfolder.listeners;
 
+import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.procedures.Close;
 import main.java.spirit1292.spiritfolder.procedures.Message;
-import main.java.spirit1292.spiritfolder.reference.Names;
-import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.reference.TerminalMessages;
-import main.java.spirit1292.spiritfolder.settings.AppConfig;
+import main.java.spirit1292.spiritfolder.settings.AppLang;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
 
 public class WindowLoginListeners implements WindowListener
 {
-    public boolean DebugMode;
-
-    public void LoadConfig()
-    {
-        try
-        {
-            AppConfig.load(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
-            DebugMode = AppConfig.getBoolean(Names.SETTING_SPIRITFOLDER_DEBUG_TITLE);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-
     @Override
     public void windowOpened(WindowEvent e)
     {
-        LoadConfig();
-        if (DebugMode)
+        if (ProjectInfi.debugMode)
         {
-            new Message().ShowMessage(2, 2, TerminalMessages.TITLE_WINDOWLOGIN_OPENED, false);
+            new Message().ShowMessage(2, 2, AppLang.Lang("MESSAGE_WINDOW_LOGIN_OPENED"), null);
         }
     }
 
     @Override
     public void windowClosing(WindowEvent e)
     {
-        LoadConfig();
-        if (DebugMode)
+        if (ProjectInfi.debugMode)
         {
-            new Message().ShowMessage(2, 2, TerminalMessages.TITLE_WINDOWLOGIN_CLOSING, false);
+            new Message().ShowMessage(2, 2, AppLang.Lang("MESSAGE_WINDOW_LOGIN_CLOSING"), null);
         }
         Close.main(null);
     }
@@ -52,50 +32,45 @@ public class WindowLoginListeners implements WindowListener
     @Override
     public void windowClosed(WindowEvent e)
     {
-        LoadConfig();
-        if (DebugMode)
+        if (ProjectInfi.debugMode)
         {
-            new Message().ShowMessage(2, 2, TerminalMessages.TITLE_WINDOWLOGIN_CLOSED, false);
+            new Message().ShowMessage(2, 2, AppLang.Lang("MESSAGE_WINDOW_LOGIN_CLOSED"), null);
         }
     }
 
     @Override
     public void windowIconified(WindowEvent e)
     {
-        LoadConfig();
-        if (DebugMode)
+        if (ProjectInfi.debugMode)
         {
-            new Message().ShowMessage(2, 2, TerminalMessages.TITLE_WINDOWLOGIN_ICONFIED, false);
+            new Message().ShowMessage(2, 2, AppLang.Lang("MESSAGE_WINDOW_LOGIN_ICONFIED"), null);
         }
     }
 
     @Override
     public void windowDeiconified(WindowEvent e)
     {
-        LoadConfig();
-        if (DebugMode)
+        if (ProjectInfi.debugMode)
         {
-            new Message().ShowMessage(2, 2, TerminalMessages.TITLE_WINDOWLOGIN_DEICONFIED, false);
+            new Message().ShowMessage(2, 2, AppLang.Lang("MESSAGE_WINDOW_LOGIN_DEICONFIED"), null);
         }
     }
 
     @Override
     public void windowActivated(WindowEvent e)
     {
-        LoadConfig();
-        if (DebugMode)
+        if (ProjectInfi.debugMode)
         {
-            new Message().ShowMessage(2, 2, TerminalMessages.TITLE_WINDOWLOGIN_ACTIVATED, false);
+            new Message().ShowMessage(2, 2, AppLang.Lang("MESSAGE_WINDOW_LOGIN_ACTIVATED"), null);
         }
     }
 
     @Override
     public void windowDeactivated(WindowEvent e)
     {
-        LoadConfig();
-        if (DebugMode)
+        if (ProjectInfi.debugMode)
         {
-            new Message().ShowMessage(2, 2, TerminalMessages.TITLE_WINDOWLOGIN_DEACTIVATED, false);
+            new Message().ShowMessage(2, 2, AppLang.Lang("MESSAGE_WINDOW_LOGIN_DEACTIVATED"), null);
         }
     }
 }

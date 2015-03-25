@@ -1,8 +1,0 @@
-<?xml version = '1.0'?>
-<app-settings>
- <properties>
-  <property key="FolderDestination">D:\SpiritFolder</property>
-  <property key="DebugMode">false</property>
-  <property key="Password">123</property>
- </properties>
-</app-settings>

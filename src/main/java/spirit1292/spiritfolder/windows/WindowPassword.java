@@ -1,109 +1,101 @@
 package main.java.spirit1292.spiritfolder.windows;
 
+import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.listeners.WindowPasswordActionListeners;
 import main.java.spirit1292.spiritfolder.listeners.WindowPasswordListeners;
-import main.java.spirit1292.spiritfolder.reference.Names;
+import main.java.spirit1292.spiritfolder.procedures.Message;
 import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.settings.AppConfig;
+import main.java.spirit1292.spiritfolder.settings.AppLang;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 public class WindowPassword extends JFrame
 {
     public static JPanel panelButtons;
-    public static JButton button1;
-    public static JButton button2;
+    public static JButton buttonChangePassword;
+    public static JButton buttonCancel;
 
     public static JPanel panelFields;
-    public static JTextField field1;
-    public static JTextField field2;
-    public static JTextField field3;
-
-    public static String password;
-
-    public static void LoadConfig()
-    {
-        try
-        {
-            AppConfig.load(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
+    public static JTextField fieldCurrentPassword;
+    public static JTextField fieldNewPassword;
+    public static JTextField fieldNewPasswordConfirm;
 
     public WindowPassword()
     {
-        super(Reference.APP_NAME + ": " + Names.WINDOWPASSWORD_NAME);
-            LoadConfig();
-            password = (String) AppConfig.get(Names.SETTING_SPIRITFOLDER_PASSWORD_TITLE);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        super();
+        setTitle(AppLang.Lang("WINDOW_PASSWORD_NAME"));
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setFont(new Font(ProjectInfi.fontName, Font.PLAIN, ProjectInfi.fontSize));
         setResizable(false);
         setIconImage(new ImageIcon(Reference.APP_ICON_LOCATION + Reference.APP_ICON_NAME).getImage());
-
 
         try
         {
             panelButtons = new JPanel(new FlowLayout());
             panelButtons.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-            button1 = new JButton();
-            button2 = new JButton(Names.WINDOWPASSWORD_BUTTON_CANCEL_NAME);
+            buttonChangePassword = new JButton();
+            buttonCancel = new JButton(AppLang.Lang("WINDOW_PASSWORD_BUTTON_CANCEL_NAME"));
 
-            field1 = new JTextField();
-            field2 = new JTextField();
-            field3 = new JTextField();
+            fieldCurrentPassword = new JPasswordField();
+            fieldNewPassword = new JPasswordField();
+            fieldNewPasswordConfirm = new JPasswordField();
 
             panelFields = new JPanel()
             {
                 public Dimension getMaximumSize()
                 {
                     Dimension pref = getPreferredSize();
-                    return new Dimension(Integer.MAX_VALUE,
-                            pref.height);
+                    return new Dimension(Integer.MAX_VALUE, pref.height);
                 }
             };
             panelFields.setLayout(new BoxLayout(panelFields, BoxLayout.PAGE_AXIS));
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_CREATE_ITEMS_DONE"), null);
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_CREATE_ITEMS_ERROR"), ex);
         }
 
         try
         {
-            if (password != null)
+            if (ProjectInfi.passwordProgram == null)
             {
-                setPreferredSize(new Dimension(380, 160));
-                button1.setText(Names.WINDOWPASSWORD_BUTTON_PASSWORD_CHANGE_NAME);
-                panelFields.add(field1, new BoxLayout(this, BoxLayout.LINE_AXIS));
-                panelFields.add(Box.createHorizontalStrut(5));
+                setPreferredSize(new Dimension(380, 130));
+                buttonChangePassword.setText(AppLang.Lang("WINDOW_PASSWORD_BUTTON_PASSWORD_CREATE_NAME"));
             }
             else
             {
-                setPreferredSize(new Dimension(380, 130));
-                button1.setText(Names.WINDOWPASSWORD_BUTTON_PASSWORD_CREATE_NAME);
+                setPreferredSize(new Dimension(380, 160));
+                buttonChangePassword.setText(AppLang.Lang("WINDOW_PASSWORD_BUTTON_PASSWORD_CHANGE_NAME"));
+                        panelFields.add(fieldCurrentPassword, new BoxLayout(this, BoxLayout.LINE_AXIS));
+                panelFields.add(Box.createHorizontalStrut(5));
             }
-            panelFields.add(field2, new BoxLayout(this, BoxLayout.LINE_AXIS));
+            
+            buttonChangePassword.setContentAreaFilled(false);
+            buttonCancel.setContentAreaFilled(false);
+            
+            panelFields.add(fieldNewPassword, new BoxLayout(this, BoxLayout.LINE_AXIS));
             panelFields.add(Box.createHorizontalStrut(5));
-            panelFields.add(field3, new BoxLayout(this, BoxLayout.LINE_AXIS));
+            panelFields.add(fieldNewPasswordConfirm, new BoxLayout(this, BoxLayout.LINE_AXIS));
             panelFields.add(Box.createHorizontalStrut(5));
             add(panelFields);
 
-            panelButtons.add(button1);
+            panelButtons.add(buttonChangePassword);
             panelButtons.add(Box.createHorizontalStrut(5));
             panelButtons.add(new JSeparator(SwingConstants.VERTICAL));
             panelButtons.add(Box.createHorizontalStrut(5));
-            panelButtons.add(button2);
+            panelButtons.add(buttonCancel);
             add(panelButtons, BorderLayout.SOUTH);
 
             pack();
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_ADD_ITEMS_DONE"), null);
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_ADD_ITEMS_ERROR"), ex);
         }
 
         ActionListeners();
@@ -115,8 +107,17 @@ public class WindowPassword extends JFrame
 
     public void ActionListeners()
     {
-        button1.addActionListener(WindowPasswordActionListeners.changePassword);
-        button2.addActionListener(WindowPasswordActionListeners.exit);
+        try
+        {
+            buttonChangePassword.addActionListener(WindowPasswordActionListeners.changePassword);
+            buttonCancel.addActionListener(WindowPasswordActionListeners.exit);
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_ADD_ACTION_LISTENERS_DONE"), null);
+        }
+        catch (Exception ex)
+        {
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_ADD_ACTION_LISTENERS_ERROR"), ex);
+        }
     }
 
     public void WindowListeners()
@@ -124,10 +125,12 @@ public class WindowPassword extends JFrame
         try
         {
             super.addWindowListener(new WindowPasswordListeners());
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_ADD_WINDOW_LISTENERS_DONE"), null);
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
+            new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_ADD_WINDOW_LISTENERS_ERROR"), ex);
         }
     }
 
@@ -135,11 +138,13 @@ public class WindowPassword extends JFrame
     {
         try
         {
+            if (ProjectInfi.debugMode)
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_PASSWORD_OPEN_MESSAGE"), null);
             new WindowPassword();
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
+            new Message().ShowMessage(1, 4 ,AppLang.Lang("MESSAGE_WINDOW_PASSWORD_OPEN_ERROR"), ex);
         }
     }
 }
