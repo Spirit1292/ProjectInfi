@@ -1,19 +1,22 @@
 package main.java.spirit1292.spiritfolder.procedures;
 
+import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.settings.AppLang;
 import main.java.spirit1292.spiritfolder.windows.WindowMain;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Message
 {
-    Date Date = new Date( );
-    SimpleDateFormat Time = new SimpleDateFormat ("hh:mm:ss");
-    String TypeStr;
-    String CategoryStr;
-    String TerminalMessage;
+    public static Date Date = new Date( );
+    public static SimpleDateFormat Time = new SimpleDateFormat ("hh:mm:ss");
+    public static String TypeStr;
+    public static String CategoryStr;
+    public static String TerminalMessage;
 
     public void ShowMessage(int Type, int Category, String Message, Exception ErrorMessage)
     {
@@ -35,6 +38,8 @@ public class Message
 
         TerminalMessage = Time.format(Date) + " " + TypeStr + " " +  CategoryStr  + " " + Message + "\n";
 
+        //ProgramLog(TerminalMessage);
+
         if (Category == 4)
         {
             JOptionPane.showMessageDialog(
@@ -42,24 +47,37 @@ public class Message
                     Message,
                     AppLang.Lang("MESSAGE_PROCEDURE_CLOSE_QUESTION_NAME"),
                     JOptionPane.ERROR_MESSAGE);
-            System.out.println(TerminalMessage);
         }
-        else
+
+        try
         {
-            try
-            {
-                WindowMain.statusBar.setMessage(TerminalMessage);
-                WindowMain.debugLog.append(TerminalMessage);
-                System.out.print(TerminalMessage);
-            }
-            catch (NullPointerException nex)
-            {
-                System.out.print(TerminalMessage);
-            }
+            WindowMain.statusBar.setMessage(TerminalMessage);
+            if (ProjectInfi.debugMode) WindowMain.debugLog.append(TerminalMessage);
+            System.out.print(TerminalMessage);
         }
+        catch (NullPointerException nex)
+        {
+            System.out.print(TerminalMessage);
+        }
+
         if (ErrorMessage != null)
         {
             ErrorMessage.printStackTrace();
+        }
+    }
+
+    public static void ProgramLog(String terminalMessage)
+    {
+        try
+        {
+            Logger log = Logger.getLogger(Message.class.getName());
+            log.log(Level.ALL, terminalMessage);
+
+            new Message().ShowMessage(1, 1, "Log saved", null);
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Logging failed!!!");
         }
     }
 }

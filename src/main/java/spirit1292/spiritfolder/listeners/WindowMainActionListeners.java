@@ -3,13 +3,11 @@ package main.java.spirit1292.spiritfolder.listeners;
 import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.procedures.*;
 import main.java.spirit1292.spiritfolder.reference.Reference;
-import main.java.spirit1292.spiritfolder.settings.AppConfig;
 import main.java.spirit1292.spiritfolder.settings.AppLang;
 import main.java.spirit1292.spiritfolder.windows.WindowMain;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class WindowMainActionListeners extends WindowMain
 {
@@ -31,7 +29,7 @@ public class WindowMainActionListeners extends WindowMain
         }
     };
 
-    public static ActionListener folderList = new ActionListener()
+    public static ActionListener refreshList = new ActionListener()
     {
         @Override
         public void actionPerformed(ActionEvent ae2)
@@ -64,8 +62,7 @@ public class WindowMainActionListeners extends WindowMain
                 }
                 else
                 {
-                    AppConfig.put(Reference.SETTING_DEBUG, "false");
-                    AppConfig.save(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
+                    ProjectInfi.SaveConfig(Reference.SETTING_DEBUG, "false");
                     new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_WINDOW_MAIN_ACTION_DEBUG_OFF"), null);
                 }
             }

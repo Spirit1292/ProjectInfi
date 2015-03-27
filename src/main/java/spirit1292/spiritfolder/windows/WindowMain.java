@@ -3,6 +3,7 @@ package main.java.spirit1292.spiritfolder.windows;
 import main.java.spirit1292.spiritfolder.ProjectInfi;
 import main.java.spirit1292.spiritfolder.listeners.WindowMainActionListeners;
 import main.java.spirit1292.spiritfolder.listeners.WindowMainListeners;
+import main.java.spirit1292.spiritfolder.listeners.WindowMainMouseListeners;
 import main.java.spirit1292.spiritfolder.procedures.FolderMonitoring;
 import main.java.spirit1292.spiritfolder.procedures.Message;
 import main.java.spirit1292.spiritfolder.procedures.ScreenResolution;
@@ -49,17 +50,20 @@ public class WindowMain extends JFrame
             tools = new JMenu(AppLang.Lang("WINDOW_MAIN_MENU_TOOLS_NAME"));
 
             addFile = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ADD_FILES_NAME"));
-            openFolder = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_OPENFOLDER_NAME"));
+            openFolder = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_OPENFOLDER_NAME"));
                 if (ProjectInfi.debugMode)
-                    debugMode = new JRadioButtonMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_DEBUG_NAME"), true);
-                else
-                    debugMode = new JRadioButtonMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_DEBUG_NAME"), false);
-            changePassword = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_CHANGE_PASSWORD_NAME"));
-            refresh = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_REFRESH_NAME"));
-            logout = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_LOGOUT_NAME"));
-            exit = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_ITEM_EXIT_NAME"));
+                {
+                    debugMode = new JRadioButtonMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_DEBUG_NAME"), true);
+                    debugLog = new JTextArea(null, null, 0, 70);
+                    debugLog.setEditable(false);
+                    add(debugLog, BorderLayout.EAST);
 
-            debugLog = new JTextArea(null, null, 0, 70);
+                }
+                else debugMode = new JRadioButtonMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_DEBUG_NAME"), false);
+            changePassword = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_CHANGE_PASSWORD_NAME"));
+            refresh = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_REFRESH_NAME"));
+            logout = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_LOGOUT_NAME"));
+            exit = new JMenuItem(AppLang.Lang("WINDOW_MAIN_MENU_EXIT_NAME"));
 
             if (ProjectInfi.debugMode)
                 new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_MAIN_CREATE_ITEMS_DONE"), null);
@@ -84,11 +88,7 @@ public class WindowMain extends JFrame
             tools.add(changePassword);
             edit.add(refresh);
 
-            debugLog.setOpaque(true);
-            debugLog.setEditable(false);
-
             add(folderTree, BorderLayout.CENTER);
-            add(debugLog, BorderLayout.EAST);
             setJMenuBar(menuBar);
             getContentPane().add(statusBar, java.awt.BorderLayout.SOUTH);
             pack();
@@ -102,7 +102,7 @@ public class WindowMain extends JFrame
 
         ActionListeners();
         WindowListeners();
-        //MouseListeners();
+        MouseListeners();
 
         setLocationRelativeTo(null);
         setVisible(false);
@@ -117,7 +117,7 @@ public class WindowMain extends JFrame
             openFolder.addActionListener(WindowMainActionListeners.openFolder);
             logout.addActionListener(WindowMainActionListeners.logout);
             exit.addActionListener(WindowMainActionListeners.exit);
-            refresh.addActionListener(WindowMainActionListeners.folderList);
+            refresh.addActionListener(WindowMainActionListeners.refreshList);
             changePassword.addActionListener(WindowMainActionListeners.changePassword);
             if (ProjectInfi.debugMode)
                 new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_WINDOW_MAIN_ADD_ACTION_LISTENERS_DONE"), null);
@@ -144,7 +144,7 @@ public class WindowMain extends JFrame
 
     public void MouseListeners()
     {
-        //folderTree.addMouseListener(new WindowMainMouseListeners());
+        folderTree.addMouseListener(new WindowMainMouseListeners());
     }
 
 

@@ -23,8 +23,10 @@ public class FolderAdd extends JFrame
                         System.out.println("-----------------------------------------------------------------------");
                 for (File file : fileList)
                 {
-                    new File(String.valueOf(file)).renameTo(new File(String.valueOf(ProjectInfi.folderDestination) + "\\" + file.getName()));
-                    new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_ADD_FILE_NAME") + file.getName(), null);
+                    new File(String.valueOf(file)).renameTo(new File(String.valueOf(ProjectInfi.folderDestination)
+                            + "\\" + file.getName()));
+                    new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_ADD_FILE_NAME")
+                            + file.getName(), null);
                 }
                 System.out.println("-----------------------------------------------------------------------");
                 new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_PROCEDURE_FOLDER_ADD_DONE"), null);

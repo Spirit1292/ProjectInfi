@@ -48,7 +48,7 @@ public class FolderMonitoring
             root = new DefaultMutableTreeNode("root", true);
             if (ProjectInfi.debugMode)
             {
-                new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_MONITORING_FILE_LIST_START"), null);
+                new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_MONITORING_FILE_LIST_LOADING_START"), null);
                 System.out.println("-----------------------------------------------------------------------");
             }
             Thread.sleep(1500);
@@ -56,7 +56,7 @@ public class FolderMonitoring
             if (ProjectInfi.debugMode)
             {
                 System.out.println("-----------------------------------------------------------------------");
-                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_MONITORING_FILE_LIST_DONE"), null);
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_MONITORING_FILE_LIST_LOADING_DONE"), null);
                 new Message().ShowMessage(1, 2, String.valueOf(folderCount - 1 + " folders / "
                         + fileCount + " files"), null);
             }
@@ -70,9 +70,8 @@ public class FolderMonitoring
         {
             JTree treeFolder = new JTree(root);
             treeFolder.setRootVisible(false);
-            treeFolder.setScrollsOnExpand(true);
             if (ProjectInfi.debugMode)
-                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_MONITORING_TREE_DONE"), null);
+                new Message().ShowMessage(1, 1, AppLang.Lang("MESSAGE_MONITORING_TREE_CREATED"), null);
             return treeFolder;
 
         }

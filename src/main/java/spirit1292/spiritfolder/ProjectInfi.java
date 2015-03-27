@@ -20,6 +20,9 @@ public class ProjectInfi
     public static JFrame windowLogin;
     public static JFrame windowPassword;
 
+
+    public static String mainConfig = Reference.APP_CONFIGS_LOCATION + Reference.APP_CONFIG_MAIN_FILE_NAME;
+    public static String logConfig = Reference.APP_CONFIGS_LOCATION + Reference.APP_CONFIG_LOG_FILE_NAME;
     public static String passwordProgram;
     public static Integer versionDev;
     public static boolean debugMode;
@@ -31,7 +34,8 @@ public class ProjectInfi
     {
         try
         {
-            AppConfig.load(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
+            //LogManager.getLogManager().readConfiguration(ProjectInfi.class.getResourceAsStream(logConfig));
+            AppConfig.load(new File(mainConfig));
             versionDev = AppConfig.getInt(Reference.SETTING_VERSIONDEV, 0);
             debugMode = AppConfig.getBoolean(Reference.SETTING_DEBUG);
             fontName = AppConfig.get(Reference.SETTING_FONT_NAME);
@@ -44,6 +48,7 @@ public class ProjectInfi
         catch (Exception ex)
         {
             ex.printStackTrace();
+            System.exit(-1);
         }
     }
 
@@ -52,7 +57,7 @@ public class ProjectInfi
         try
         {
             AppConfig.put(name, value);
-            AppConfig.save(new File(Reference.APP_CONFIG_FILE_LOCATION + Reference.APP_CONFIG_FILE_NAME));
+            AppConfig.save(new File(mainConfig));
             LoadConfig();
         }
         catch (Exception ex)

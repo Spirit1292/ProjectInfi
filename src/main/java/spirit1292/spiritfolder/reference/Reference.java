@@ -8,8 +8,9 @@ public class Reference
     public static final String APP_FOLDER_NAME = "\\SpiritFolder";
     public static final String APP_ICON_NAME = "locked61.png";
     public static final String APP_ICON_LOCATION = "src/main/resources/assets/spiritfolder/textures/icons/";
-    public static final String APP_CONFIG_FILE_NAME = "Settings.xml";
-    public static final String APP_CONFIG_FILE_LOCATION = "src/main/java/spirit1292/spiritfolder/";
+    public static final String APP_CONFIG_MAIN_FILE_NAME = "Settings.xml";
+    public static final String APP_CONFIG_LOG_FILE_NAME = "Logging.properties";
+    public static final String APP_CONFIGS_LOCATION = "src/main/java/spirit1292/spiritfolder/settings/configurations/";
     public static final String APP_LOCALIZATION_FOLDER_LOCATION = "main.resources.assets.spiritfolder.lang.language";
 
     //LookAndFeel full names
