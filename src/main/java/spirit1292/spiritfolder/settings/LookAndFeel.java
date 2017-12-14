@@ -26,24 +26,19 @@ public class LookAndFeel
                         UIManager.getLookAndFeel().getName(), null);
             }
         }
+
         catch (UnsupportedLookAndFeelException ulafex)
         {
             new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_LOOKANDFEEL_ERROR_UNSUPPORTED"), null);
             new Message().ShowMessage(1, 2, AppLang.Lang("MESSAGE_LOOKANDFEEL_CURRENT") + " " +
                     UIManager.getLookAndFeel().getDescription(), ulafex);
         }
-        catch (ClassNotFoundException cnfex)
-        {
-            // handle exception
-        }
-        catch (InstantiationException iex)
-        {
-            // handle exception
-        }
+
         catch (IllegalAccessException iaex)
         {
             // handle exception
         }
+
         catch (Exception ex)
         {
             new Message().ShowMessage(1, 4, AppLang.Lang("MESSAGE_LOOKANDFEEL_ERROR"), ex);

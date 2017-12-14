@@ -1,4 +1,4 @@
-package main.java.spirit1292.spiritfolder.procedures;
+package procedures;
 
 import java.awt.*;
 

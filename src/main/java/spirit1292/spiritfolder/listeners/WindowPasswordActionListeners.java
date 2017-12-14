@@ -75,15 +75,10 @@ public class WindowPasswordActionListeners
         }
     };
 
-    public static ActionListener exit = new ActionListener()
-    {
-        @Override
-        public void actionPerformed(ActionEvent ae)
-        {
-            ProjectInfi.windowPassword.setVisible(false);
-            WindowPassword.fieldCurrentPassword.setText(null);
-            WindowPassword.fieldNewPassword.setText(null);
-            WindowPassword.fieldNewPasswordConfirm.setText(null);
-        }
+    public static ActionListener exit = ae -> {
+        ProjectInfi.windowPassword.setVisible(false);
+        WindowPassword.fieldCurrentPassword.setText(null);
+        WindowPassword.fieldNewPassword.setText(null);
+        WindowPassword.fieldNewPasswordConfirm.setText(null);
     };
 }

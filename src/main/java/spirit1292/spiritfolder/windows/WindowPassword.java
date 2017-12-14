@@ -19,7 +19,7 @@ public class WindowPassword extends JFrame
     public static JPanel panelFields;
     public static JTextField fieldCurrentPassword;
     public static JTextField fieldNewPassword;
-    public static JTextField fieldNewPasswordConfirm;
+    public static JTextField  fieldNewPasswordConfirm;
 
     public WindowPassword()
     {

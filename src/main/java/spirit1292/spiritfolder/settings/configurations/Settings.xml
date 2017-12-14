@@ -3,8 +3,8 @@
  <properties>
   <property key="FolderDestination">D:\SpiritFolder</property>
   <property key="LanguageCountry">US</property>
-  <property key="FontSize">14</property>
-  <property key="VersionDev">326</property>
+  <property key="FontSize">24</property>
+  <property key="VersionDev">334</property>
   <property key="DebugMode">true</property>
   <property key="FontName">Verdana</property>
   <property key="LanguageName">en</property>

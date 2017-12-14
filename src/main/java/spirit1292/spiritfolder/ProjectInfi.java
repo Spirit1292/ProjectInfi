@@ -89,7 +89,7 @@ public class ProjectInfi
         try
         {
             FolderLocation.main(null);
-            SaveConfig(Reference.SETTING_VERSIONDEV, (versionDev += 1) .toString());
+            //SaveConfig(Reference.SETTING_VERSIONDEV, (versionDev += 1) .toString());
 
             if (passwordProgram == null)
             {

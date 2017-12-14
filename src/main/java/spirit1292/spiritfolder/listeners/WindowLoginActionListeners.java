@@ -41,12 +41,5 @@ public class WindowLoginActionListeners extends WindowLogin
         }
     };
 
-    public static ActionListener exit = new ActionListener()
-    {
-        @Override
-        public void actionPerformed(ActionEvent ae)
-        {
-            Close.main(null);
-        }
-    };
+    public static ActionListener exit = ae -> Close.main(null);
 }

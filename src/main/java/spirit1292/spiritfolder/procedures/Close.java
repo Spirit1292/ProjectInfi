@@ -32,16 +32,7 @@ public class Close
             }
             case JOptionPane.NO_OPTION:
             {
-                Object[] options = {AppLang.Lang("MESSAGE_PROCEDURE_CLOSE_ANSWER_SECOND")};
-                JOptionPane.showOptionDialog(
-                        null,
-                        AppLang.Lang("MESSAGE_PROCEDURE_CLOSE_QUESTION_SECOND"),
-                        AppLang.Lang("MESSAGE_PROCEDURE_CLOSE_QUESTION_NAME"),
-                        JOptionPane.OK_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE,
-                        null,
-                        options,
-                        options[0]);
+                return;
             }
         }
     }
